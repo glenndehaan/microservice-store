@@ -1,20 +1,36 @@
 version: '2'
 services:
+  # API Services
   cart:
     build: ./api/cart
+    links:
+      - "storage"
   product:
     build: ./api/product
   search:
     build: ./api/search
   stock:
     build: ./api/stock
-  storage:
-    build: ./storage
   user:
     build: ./api/user
+    links:
+      - "storage"
+  wishlist:
+    build: ./api/wishlist
+    links:
+      - "storage"
+  # App Storage
+  storage:
+    build: ./storage
+  # App Web UI
   web:
     build: ./web
     ports:
       - "3000:3000"
-  wishlist:
-    build: ./api/wishlist
+    links:
+      - "cart"
+      - "product"
+      - "search"
+      - "stock"
+      - "user"
+      - "wishlist"
