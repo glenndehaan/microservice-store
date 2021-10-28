@@ -1,1 +1,20 @@
 version: '2'
+services:
+  cart:
+    build: ./api/cart
+  product:
+    build: ./api/product
+  search:
+    build: ./api/search
+  stock:
+    build: ./api/stock
+  storage:
+    build: ./storage
+  user:
+    build: ./api/user
+  web:
+    build: ./web
+    ports:
+      - "3000:3000"
+  wishlist:
+    build: ./api/wishlist
