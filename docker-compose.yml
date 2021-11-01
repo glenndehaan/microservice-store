@@ -46,3 +46,15 @@ services:
       - "stock"
       - "user"
       - "wishlist"
+  # App Proxy
+  proxy:
+    build: ./proxy
+    ports:
+      - "9999:9999"
+    links:
+      - "cart"
+      - "product"
+      - "search"
+      - "stock"
+      - "user"
+      - "wishlist"
