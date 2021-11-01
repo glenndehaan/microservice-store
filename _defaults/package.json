@@ -1,0 +1,11 @@
+{
+  "name": "defaults",
+  "version": "1.0.0",
+  "description": "Defaults for microservices",
+  "author": "Glenn de Haan",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "simple-node-logger": "^21.8.12"
+  }
+}

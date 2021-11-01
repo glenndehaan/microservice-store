@@ -2,21 +2,33 @@ version: '2'
 services:
   # API Services
   cart:
-    build: ./api/cart
+    build:
+      context: .
+      dockerfile: ./api/cart/Dockerfile
     links:
       - "storage"
   product:
-    build: ./api/product
+    build:
+      context: .
+      dockerfile: ./api/product/Dockerfile
   search:
-    build: ./api/search
+    build:
+      context: .
+      dockerfile: ./api/search/Dockerfile
   stock:
-    build: ./api/stock
+    build:
+      context: .
+      dockerfile: ./api/stock/Dockerfile
   user:
-    build: ./api/user
+    build:
+      context: .
+      dockerfile: ./api/user/Dockerfile
     links:
       - "storage"
   wishlist:
-    build: ./api/wishlist
+    build:
+      context: .
+      dockerfile: ./api/wishlist/Dockerfile
     links:
       - "storage"
   # App Storage
