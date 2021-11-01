@@ -36,16 +36,9 @@ services:
     build: ./storage
   # App Web UI
   web:
-    build: ./web
-    ports:
-      - "3000:3000"
-    links:
-      - "cart"
-      - "product"
-      - "search"
-      - "stock"
-      - "user"
-      - "wishlist"
+    build:
+      context: .
+      dockerfile: ./web/Dockerfile
   # App Proxy
   proxy:
     build: ./proxy
@@ -58,3 +51,4 @@ services:
       - "stock"
       - "user"
       - "wishlist"
+      - "web"
