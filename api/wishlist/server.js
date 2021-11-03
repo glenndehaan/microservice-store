@@ -9,15 +9,20 @@ const dev = process.env.NODE_ENV !== 'production';
 const Api = require(dev ? '../../_defaults/Api' : '/_defaults/Api');
 
 /**
+ * Define global variables
+ */
+const version = '1.0';
+
+/**
  * Create new API service
  */
-const api = new Api('wishlist', 4005);
+const api = new Api('wishlist', 4005, version);
 
 /**
  * Setup GET Wishlist endpoint
  */
 api.get('/', (req, res) => {
-    res.send('Wishlist OK!');
+    res.json(api.response());
 });
 
 /**

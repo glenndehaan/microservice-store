@@ -18,8 +18,9 @@ class Api {
      *
      * @param service
      * @param port
+     * @param version
      */
-    constructor(service = false, port = false) {
+    constructor(service = false, port = false, version = false) {
         if(!service) {
             throw new Error('[API] No service defined!');
         }
@@ -28,9 +29,14 @@ class Api {
             throw new Error('[API] No port defined!');
         }
 
+        if(!version) {
+            throw new Error('[API] No version defined!');
+        }
+
         // Set variables
         this.service = service;
         this.port = port;
+        this.version = version;
         this.serviceLabel = `${service.charAt(0).toUpperCase()}${service.slice(1)}`;
         this.app = express();
 
@@ -53,15 +59,7 @@ class Api {
 
         // Setup health check
         this.app.get('/_status', (req, res) => {
-            res.json({
-                status: {
-                    success: true,
-                    message: "API Running!",
-                    version: "1.0",
-                    host: os.hostname()
-                },
-                "data": {}
-            });
+            res.json(this.response());
         });
 
         // Disable powered by header for security reasons
@@ -81,6 +79,26 @@ class Api {
         this.app.listen(this.port, '0.0.0.0', () => {
             log.info(`[${this.serviceLabel}] App is running on: 0.0.0.0:${this.port}`);
         });
+    }
+
+    /**
+     * Defines the default response format
+     *
+     * @param data
+     * @param message
+     * @param code
+     */
+    response(data = {}, message = 'OK', code = 200) {
+        return {
+            status: {
+                success: code < 400,
+                message: message,
+                version: this.version,
+                host: os.hostname(),
+                service: this.service
+            },
+            data: data
+        }
     }
 }
 

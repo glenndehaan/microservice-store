@@ -9,15 +9,20 @@ const dev = process.env.NODE_ENV !== 'production';
 const Api = require(dev ? '../../_defaults/Api' : '/_defaults/Api');
 
 /**
+ * Define global variables
+ */
+const version = '1.0';
+
+/**
  * Create new API service
  */
-const api = new Api('user', 4004);
+const api = new Api('user', 4004, version);
 
 /**
  * Setup GET User endpoint
  */
 api.get('/', (req, res) => {
-    res.send('User OK!');
+    res.json(api.response());
 });
 
 /**
