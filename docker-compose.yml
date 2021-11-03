@@ -5,50 +5,142 @@ services:
     build:
       context: .
       dockerfile: ./api/cart/Dockerfile
-    links:
-      - "storage"
+    networks:
+      - web
+      - backend
+    labels:
+      #### Labels define the behavior and rules of the traefik proxy for this container ####
+      - "traefik.enable=true"
+      - "traefik.http.routers.microservice-cart.rule=PathPrefix(`/api/cart`)"
+      - "traefik.http.routers.microservice-cart.entrypoints=web"
+      - "traefik.http.routers.microservice-cart.middlewares=microservice-cart-stripprefix"
+      - "traefik.http.middlewares.microservice-cart-stripprefix.stripprefix.prefixes=/api/cart"
+      - "traefik.http.services.microservice-cart.loadbalancer.healthcheck.path=/_status"
+      - "traefik.http.services.microservice-cart.loadbalancer.healthcheck.interval=30s"
   product:
     build:
       context: .
       dockerfile: ./api/product/Dockerfile
+    networks:
+      - web
+    labels:
+      #### Labels define the behavior and rules of the traefik proxy for this container ####
+      - "traefik.enable=true"
+      - "traefik.http.routers.microservice-product.rule=PathPrefix(`/api/product`)"
+      - "traefik.http.routers.microservice-product.entrypoints=web"
+      - "traefik.http.routers.microservice-product.middlewares=microservice-product-stripprefix"
+      - "traefik.http.middlewares.microservice-product-stripprefix.stripprefix.prefixes=/api/product"
+      - "traefik.http.services.microservice-product.loadbalancer.healthcheck.path=/_status"
+      - "traefik.http.services.microservice-product.loadbalancer.healthcheck.interval=30s"
   search:
     build:
       context: .
       dockerfile: ./api/search/Dockerfile
+    networks:
+      - web
+    labels:
+      #### Labels define the behavior and rules of the traefik proxy for this container ####
+      - "traefik.enable=true"
+      - "traefik.http.routers.microservice-search.rule=PathPrefix(`/api/search`)"
+      - "traefik.http.routers.microservice-search.entrypoints=web"
+      - "traefik.http.routers.microservice-search.middlewares=microservice-search-stripprefix"
+      - "traefik.http.middlewares.microservice-search-stripprefix.stripprefix.prefixes=/api/search"
+      - "traefik.http.services.microservice-search.loadbalancer.healthcheck.path=/_status"
+      - "traefik.http.services.microservice-search.loadbalancer.healthcheck.interval=30s"
   stock:
     build:
       context: .
       dockerfile: ./api/stock/Dockerfile
+    networks:
+      - web
+    labels:
+      #### Labels define the behavior and rules of the traefik proxy for this container ####
+      - "traefik.enable=true"
+      - "traefik.http.routers.microservice-stock.rule=PathPrefix(`/api/stock`)"
+      - "traefik.http.routers.microservice-stock.entrypoints=web"
+      - "traefik.http.routers.microservice-stock.middlewares=microservice-stock-stripprefix"
+      - "traefik.http.middlewares.microservice-stock-stripprefix.stripprefix.prefixes=/api/stock"
+      - "traefik.http.services.microservice-stock.loadbalancer.healthcheck.path=/_status"
+      - "traefik.http.services.microservice-stock.loadbalancer.healthcheck.interval=30s"
   user:
     build:
       context: .
       dockerfile: ./api/user/Dockerfile
-    links:
-      - "storage"
+    networks:
+      - web
+      - backend
+    labels:
+      #### Labels define the behavior and rules of the traefik proxy for this container ####
+      - "traefik.enable=true"
+      - "traefik.http.routers.microservice-user.rule=PathPrefix(`/api/user`)"
+      - "traefik.http.routers.microservice-user.entrypoints=web"
+      - "traefik.http.routers.microservice-user.middlewares=microservice-user-stripprefix"
+      - "traefik.http.middlewares.microservice-user-stripprefix.stripprefix.prefixes=/api/user"
+      - "traefik.http.services.microservice-user.loadbalancer.healthcheck.path=/_status"
+      - "traefik.http.services.microservice-user.loadbalancer.healthcheck.interval=30s"
   wishlist:
     build:
       context: .
       dockerfile: ./api/wishlist/Dockerfile
-    links:
-      - "storage"
+    networks:
+      - web
+      - backend
+    labels:
+      #### Labels define the behavior and rules of the traefik proxy for this container ####
+      - "traefik.enable=true"
+      - "traefik.http.routers.microservice-wishlist.rule=PathPrefix(`/api/wishlist`)"
+      - "traefik.http.routers.microservice-wishlist.entrypoints=web"
+      - "traefik.http.routers.microservice-wishlist.middlewares=microservice-wishlist-stripprefix"
+      - "traefik.http.middlewares.microservice-wishlist-stripprefix.stripprefix.prefixes=/api/wishlist"
+      - "traefik.http.services.microservice-wishlist.loadbalancer.healthcheck.path=/_status"
+      - "traefik.http.services.microservice-wishlist.loadbalancer.healthcheck.interval=30s"
   # App Storage
   storage:
     build: ./storage
+    networks:
+      - backend
   # App Web UI
   web:
     build:
       context: .
       dockerfile: ./web/Dockerfile
-  # App Proxy
-  proxy:
-    build: ./proxy
+    networks:
+      - web
+    labels:
+      #### Labels define the behavior and rules of the traefik proxy for this container ####
+      - "traefik.enable=true"
+      - "traefik.http.routers.microservice-web.rule=PathPrefix(`/`)"
+      - "traefik.http.routers.microservice-web.entrypoints=web"
+      - "traefik.http.services.microservice-web.loadbalancer.healthcheck.path=/"
+      - "traefik.http.services.microservice-web.loadbalancer.healthcheck.interval=30s"
+  traefik:
+    image: traefik:v2.5
     ports:
-      - "9999:9999"
-    links:
-      - "cart"
-      - "product"
-      - "search"
-      - "stock"
-      - "user"
-      - "wishlist"
-      - "web"
+      - "80:80" # <== http
+      - "8080:8080" # <== dashboard
+    command:
+      ## API Settings - https://docs.traefik.io/operations/api/, endpoints - https://docs.traefik.io/operations/api/#endpoints ##
+      - --api.insecure=true
+      - --api.dashboard=true
+      - --api.debug=true
+      ## Log Settings (options: ERROR, DEBUG, PANIC, FATAL, WARN, INFO) - https://docs.traefik.io/observability/logs/ ##
+      - --log.level=INFO
+      ## Provider Settings - https://docs.traefik.io/providers/docker/#provider-configuration ##
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --providers.docker.network=web
+      ## Entrypoints Settings - https://docs.traefik.io/routing/entrypoints/#configuration ##
+      - --entrypoints.web.address=:80
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - web
+    labels:
+      #### Labels define the behavior and rules of the traefik proxy for this container ####
+      - "traefik.enable=true"
+      - "traefik.http.routers.api.service=api@internal"
+networks:
+  web:
+    external: true
+  backend:
+    external: false

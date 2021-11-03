@@ -1,6 +1,7 @@
 /**
  * Import vendor modules
  */
+const os = require('os');
 const express = require('express');
 
 /**
@@ -48,6 +49,19 @@ class Api {
         this.app.use((req, res, next) => {
             log.trace(`[WEB][REQUEST]: ${req.originalUrl}`);
             next();
+        });
+
+        // Setup health check
+        this.app.get('/_status', (req, res) => {
+            res.json({
+                status: {
+                    success: true,
+                    message: "API Running!",
+                    version: "1.0",
+                    host: os.hostname()
+                },
+                "data": {}
+            });
         });
 
         // Disable powered by header for security reasons
