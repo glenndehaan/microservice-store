@@ -7,6 +7,7 @@ const dev = process.env.NODE_ENV !== 'production';
  * Import own modules
  */
 const Api = require(dev ? '../../_defaults/Api' : '/_defaults/Api');
+const db = require('./data.json');
 
 /**
  * Define global variables
@@ -22,7 +23,21 @@ const api = new Api('product', 4001, version);
  * Setup GET Product endpoint
  */
 api.get('/', (req, res) => {
-    res.json(api.response());
+    res.json(api.response(db));
+});
+
+/**
+ * Setup GET Product detail endpoint
+ */
+api.get('/:slug', (req, res) => {
+    const {slug} = req.params;
+    const data = db.filter((item) => {
+        return item.slug === slug;
+    });
+    const statusCode = data.length < 1 ? 404 : 200;
+    const statusMessage = data.length < 1 ? 'Not Found' : 'OK';
+
+    res.status(statusCode).json(api.response(data, statusMessage, statusCode));
 });
 
 /**
