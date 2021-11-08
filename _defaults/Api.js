@@ -17,6 +17,11 @@ const log = require('./Log');
 const statusCodes = require('./spec/status-codes.json');
 
 /**
+ * Check if we are using the dev version
+ */
+const dev = process.env.NODE_ENV !== 'production';
+
+/**
  * API Class
  */
 class Api {
@@ -68,6 +73,15 @@ class Api {
         // Request logger
         this.app.use((req, res, next) => {
             log.trace(`[EXPRESS][REQUEST](${req.method}): ${req.originalUrl}`);
+            next();
+        });
+
+        // CORS fixer for local debugging
+        this.app.use((req, res, next) => {
+            if(dev) {
+                res.set('Access-Control-Allow-Origin', '*');
+            }
+
             next();
         });
 

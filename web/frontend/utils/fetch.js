@@ -21,6 +21,10 @@ export default (endpoint, data = false) => {
 
         fetch(endpoint, params)
             .then(response => response.json())
-            .then(data => resolve(data));
+            .then(data => resolve(data))
+            .catch(e => {
+                console.error(e);
+                resolve(false);
+            });
     });
 }

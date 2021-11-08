@@ -25,6 +25,12 @@ const spa = (req, res) => {
         protocol: req.get('host'),
         hostname: req.protocol,
         baseUrl: `${req.protocol}://${req.get('host')}/`,
+        cartApi: dev ? 'http://localhost:4000' : '/api/cart',
+        productApi: dev ? 'http://localhost:4001' : '/api/product',
+        searchApi: dev ? 'http://localhost:4002' : '/api/search',
+        stockApi: dev ? 'http://localhost:4003' : '/api/stock',
+        userApi: dev ? 'http://localhost:4004' : '/api/user',
+        wishlistApi: dev ? 'http://localhost:4005' : '/apis/wishlist',
         assets: {
             js: files["main.js"],
             css: files["main.css"]
