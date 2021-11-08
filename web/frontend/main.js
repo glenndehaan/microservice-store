@@ -35,14 +35,12 @@ class App extends Component {
     render() {
         return (
             <div id="root">
-                <div className="container">
-                    <Menu/>
-                    <div>
-                        <Router>
-                            <Home path="/"/>
-                            <Product path="/product/:slug"/>
-                        </Router>
-                    </div>
+                <Menu/>
+                <div>
+                    <Router>
+                        <Home path="/"/>
+                        <Product path="/product/:slug"/>
+                    </Router>
                 </div>
             </div>
         );
