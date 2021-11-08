@@ -96,9 +96,10 @@ class Api {
      * @param data
      * @param message
      * @param code
+     * @param via
      */
-    response(data = {}, message = 'OK', code = 200) {
-        return {
+    response(data = {}, message = 'OK', code = 200, via = false) {
+        const response = {
             status: {
                 success: code < 400,
                 message: message,
@@ -107,7 +108,13 @@ class Api {
                 service: this.service
             },
             data: data
+        };
+
+        if(via) {
+            response.status.via = via;
         }
+
+        return response;
     }
 }
 

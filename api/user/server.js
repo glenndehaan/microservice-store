@@ -67,11 +67,11 @@ api.post('/', (req, res) => {
                 res.cookie('user', uuid).json(api.response({
                     user: uuid,
                     storage: data.data
-                }));
+                }, 'OK', 200, data.status));
             } else {
                 res.status(500).json(api.response({
                     error: data.data
-                }, 'Server Error', 500));
+                }, 'Server Error', 500, data.status));
             }
         }).catch((e) => {
             res.status(500).json(api.response({
