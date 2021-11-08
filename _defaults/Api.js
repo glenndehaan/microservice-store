@@ -3,6 +3,8 @@
  */
 const os = require('os');
 const express = require('express');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 /**
  * Import own modules
@@ -51,9 +53,16 @@ class Api {
         // Trust proxy
         this.app.enable('trust proxy');
 
+        // Enable body parser support
+        this.app.use(bodyParser.urlencoded({extended: true}));
+        this.app.use(bodyParser.json());
+
+        // Enable cookie parser support
+        this.app.use(cookieParser());
+
         // Request logger
         this.app.use((req, res, next) => {
-            log.trace(`[WEB][REQUEST]: ${req.originalUrl}`);
+            log.trace(`[EXPRESS][REQUEST](${req.method}): ${req.originalUrl}`);
             next();
         });
 
