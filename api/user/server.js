@@ -44,9 +44,15 @@ api.get('/', (req, res) => {
  * Setup POST User endpoint
  */
 api.post('/', (req, res) => {
+    const user = req.cookies.user || false;
     const uuid = uuidv4();
 
-    fetch(dev ? 'http://localhost:5000/user' : 'http://storage/user', {
+    if(user) {
+        res.status(409).json(api.response({}, 'Conflict', 409));
+        return;
+    }
+
+    fetch(dev ? 'http://localhost:5000/user' : 'http://storage:5000/user', {
         method: 'post',
         body: JSON.stringify({
             user: uuid
@@ -57,9 +63,10 @@ api.post('/', (req, res) => {
     })
         .then(res => res.json())
         .then(data => {
-            if(data.success) {
+            if(data.status.success) {
                 res.cookie('user', uuid).json(api.response({
-                    user: uuid
+                    user: uuid,
+                    storage: data.data
                 }));
             } else {
                 res.status(500).json(api.response({

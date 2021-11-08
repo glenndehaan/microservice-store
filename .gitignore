@@ -7,3 +7,6 @@
 
 # Dependencies
 node_modules
+
+# Redis data
+redis/data

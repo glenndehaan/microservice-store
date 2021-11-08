@@ -96,9 +96,22 @@ services:
       - "traefik.http.services.microservice-wishlist.loadbalancer.healthcheck.interval=30s"
   # App Storage
   storage:
-    build: ./storage
+    build:
+      context: .
+      dockerfile: ./storage/Dockerfile
+    depends_on:
+      - "redis"
     networks:
       - backend
+      - db
+  # App Redis Database
+  redis:
+    image: redis
+    command: bash -c "redis-server --appendonly yes"
+    volumes:
+      - './redis/data:/data'
+    networks:
+      - db
   # App Web UI
   web:
     build:
@@ -143,4 +156,6 @@ networks:
   web:
     external: true
   backend:
+    external: false
+  db:
     external: false
