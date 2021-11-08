@@ -37,7 +37,7 @@ const client = redis.createClient({
 api.post('/user', (req, res) => {
     const user = req.body.user;
 
-    client.set(`cart_${user}`, JSON.stringify({}), (err, cartRes) => {
+    client.set(`cart_${user}`, JSON.stringify([]), (err, cartRes) => {
         if(err) {
             res.status(500).json(api.response({
                 error: err
@@ -46,7 +46,7 @@ api.post('/user', (req, res) => {
             return;
         }
 
-        client.set(`wishlist_${user}`, JSON.stringify({}), (err, wishlistRes) => {
+        client.set(`wishlist_${user}`, JSON.stringify([]), (err, wishlistRes) => {
             if(err) {
                 res.status(500).json(api.response({
                     error: err
@@ -62,6 +62,54 @@ api.post('/user', (req, res) => {
                 }
             }));
         });
+    });
+});
+
+/**
+ * Setup cart get endpoint
+ */
+api.get('/cart/:user', (req, res) => {
+    const user = req.params.user;
+
+    client.get(`cart_${user}`, (err, cartRes) => {
+        if(err) {
+            res.status(500).json(api.response({
+                error: err
+            }, 'Server Error', 500));
+
+            return;
+        }
+
+        if(cartRes === null) {
+            res.status(404).json(api.response({}, 'Not Found', 404));
+            return;
+        }
+
+        res.json(api.response(JSON.parse(cartRes)));
+    });
+});
+
+/**
+ * Setup wishlist get endpoint
+ */
+api.get('/wishlist/:user', (req, res) => {
+    const user = req.params.user;
+
+    client.get(`wishlist_${user}`, (err, wishListRes) => {
+        if(err) {
+            res.status(500).json(api.response({
+                error: err
+            }, 'Server Error', 500));
+
+            return;
+        }
+
+        if(wishListRes === null) {
+            res.status(404).json(api.response({}, 'Not Found', 404));
+            return;
+        }
+
+        res.json(api.response(JSON.parse(wishListRes)));
     });
 });
 
