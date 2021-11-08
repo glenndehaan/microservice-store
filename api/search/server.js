@@ -26,7 +26,7 @@ api.get('/', (req, res) => {
     const {term} = req.query;
 
     if(typeof term === "undefined") {
-        res.status(412).json(api.response({}, 'Precondition Failed', 412));
+        res.status(412).json(api.response(412, {}));
         return;
     }
 
@@ -37,7 +37,7 @@ api.get('/', (req, res) => {
         return item.description.toLowerCase().includes(term.toLowerCase());
     });
 
-    res.json(api.response([...nameSearch, ...descriptionSearch]));
+    res.json(api.response(200, [...nameSearch, ...descriptionSearch]));
 });
 
 /**

@@ -23,7 +23,7 @@ const api = new Api('product', 4001, version);
  * Setup GET Product endpoint
  */
 api.get('/', (req, res) => {
-    res.json(api.response(db));
+    res.json(api.response(200, db));
 });
 
 /**
@@ -35,9 +35,8 @@ api.get('/:slug', (req, res) => {
         return item.slug === slug;
     });
     const statusCode = data.length < 1 ? 404 : 200;
-    const statusMessage = data.length < 1 ? 'Not Found' : 'OK';
 
-    res.status(statusCode).json(api.response(data, statusMessage, statusCode));
+    res.status(statusCode).json(api.response(statusCode, data));
 });
 
 /**

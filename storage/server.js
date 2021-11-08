@@ -39,23 +39,23 @@ api.post('/user', (req, res) => {
 
     client.set(`cart_${user}`, JSON.stringify([]), (err, cartRes) => {
         if(err) {
-            res.status(500).json(api.response({
+            res.status(500).json(api.response(500, {
                 error: err
-            }, 'Server Error', 500));
+            }));
 
             return;
         }
 
         client.set(`wishlist_${user}`, JSON.stringify([]), (err, wishlistRes) => {
             if(err) {
-                res.status(500).json(api.response({
+                res.status(500).json(api.response(500, {
                     error: err
-                }, 'Server Error', 500));
+                }));
 
                 return;
             }
 
-            res.json(api.response({
+            res.json(api.response(201, {
                 result: {
                     cart: cartRes,
                     wishlist: wishlistRes
@@ -73,19 +73,19 @@ api.get('/cart/:user', (req, res) => {
 
     client.get(`cart_${user}`, (err, cartRes) => {
         if(err) {
-            res.status(500).json(api.response({
+            res.status(500).json(api.response(500, {
                 error: err
-            }, 'Server Error', 500));
+            }));
 
             return;
         }
 
         if(cartRes === null) {
-            res.status(404).json(api.response({}, 'Not Found', 404));
+            res.status(404).json(api.response(404, {}));
             return;
         }
 
-        res.json(api.response(JSON.parse(cartRes)));
+        res.json(api.response(200, JSON.parse(cartRes)));
     });
 });
 
@@ -97,19 +97,19 @@ api.get('/wishlist/:user', (req, res) => {
 
     client.get(`wishlist_${user}`, (err, wishListRes) => {
         if(err) {
-            res.status(500).json(api.response({
+            res.status(500).json(500, api.response({
                 error: err
-            }, 'Server Error', 500));
+            }));
 
             return;
         }
 
         if(wishListRes === null) {
-            res.status(404).json(api.response({}, 'Not Found', 404));
+            res.status(404).json(api.response(404, {}));
             return;
         }
 
-        res.json(api.response(JSON.parse(wishListRes)));
+        res.json(api.response(200, JSON.parse(wishListRes)));
     });
 });
 

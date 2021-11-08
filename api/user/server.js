@@ -31,11 +31,11 @@ api.get('/', (req, res) => {
     const user = req.cookies.user || false;
 
     if(!user) {
-        res.status(404).json(api.response({}, 'Not Found', 404));
+        res.status(404).json(api.response(404, {}));
         return;
     }
 
-    res.json(api.response({
+    res.json(api.response(200, {
         user
     }));
 });
@@ -48,7 +48,7 @@ api.post('/', (req, res) => {
     const uuid = uuidv4();
 
     if(user) {
-        res.status(409).json(api.response({}, 'Conflict', 409));
+        res.status(409).json(api.response(409, {}));
         return;
     }
 
@@ -64,19 +64,19 @@ api.post('/', (req, res) => {
         .then(res => res.json())
         .then(data => {
             if(data.status.success) {
-                res.cookie('user', uuid).json(api.response({
+                res.cookie('user', uuid).json(api.response(200, {
                     user: uuid,
                     storage: data.data
-                }, 'OK', 200, data.status));
+                }, data.status));
             } else {
-                res.status(500).json(api.response({
+                res.status(500).json(api.response(500, {
                     error: data.data
-                }, 'Server Error', 500, data.status));
+                }, data.status));
             }
         }).catch((e) => {
-            res.status(500).json(api.response({
+            res.status(500).json(api.response(500, {
                 error: e.message || false
-            }, 'Server Error', 500));
+            }));
         });
 });
 

@@ -12,15 +12,20 @@ const cookieParser = require('cookie-parser');
 const log = require('./Log');
 
 /**
+ * Import specs
+ */
+const statusCodes = require('./spec/status-codes.json');
+
+/**
  * API Class
  */
 class Api {
     /**
      * Constructor
      *
-     * @param service
-     * @param port
-     * @param version
+     * @param {string|boolean} service
+     * @param {number|boolean} port
+     * @param {string|boolean} version
      */
     constructor(service = false, port = false, version = false) {
         if(!service) {
@@ -93,16 +98,18 @@ class Api {
     /**
      * Defines the default response format
      *
-     * @param data
-     * @param message
-     * @param code
-     * @param via
+     * @param {number} code
+     * @param {object} data
+     * @param {object|boolean} via
      */
-    response(data = {}, message = 'OK', code = 200, via = false) {
+    response(code = 200, data = {}, via = false) {
         const response = {
             status: {
                 success: code < 400,
-                message: message,
+                code: code,
+                message: statusCodes[code].phrase,
+                description: statusCodes[code].description,
+                spec: statusCodes[code].spec_href,
                 version: this.version,
                 host: os.hostname(),
                 service: this.service

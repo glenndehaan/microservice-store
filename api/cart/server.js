@@ -38,16 +38,16 @@ api.get('/:user', (req, res) => {
         .then(res => res.json())
         .then(data => {
             if(data.status.success) {
-                res.json(api.response(data.data, 'OK', 200, data.status));
+                res.json(api.response(200, data.data, data.status));
             } else {
-                res.status(404).json(api.response({
+                res.status(404).json(api.response(404, {
                     error: data.data
-                }, 'Not Found', 404, data.status));
+                }, data.status));
             }
         }).catch((e) => {
-            res.status(500).json(api.response({
+            res.status(500).json(api.response(500, {
                 error: e.message || false
-            }, 'Server Error', 500));
+            }));
         });
 });
 
