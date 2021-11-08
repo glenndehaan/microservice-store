@@ -10,3 +10,6 @@ node_modules
 
 # Redis data
 redis/data
+
+# Web builds
+web/public/dist

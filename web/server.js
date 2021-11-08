@@ -16,33 +16,9 @@ const log = require(dev ? '../_defaults/Log' : '/_defaults/Log');
 const assets = require('./assets');
 
 /**
- * Trust proxy
+ * Define SPA renderer
  */
-app.enable('trust proxy');
-
-/**
- * Set template engine
- */
-app.set('view engine', 'ejs');
-app.set('views', `${__dirname}/template`);
-
-/**
- * Serve static public dir
- */
-app.use(express.static(`${__dirname}/public`));
-
-/**
- * Request logger
- */
-app.use((req, res, next) => {
-    log.trace(`[WEB][REQUEST]: ${req.originalUrl}`);
-    next();
-});
-
-/**
- * Configure routers
- */
-app.get('/', (req, res) => {
+const spa = (req, res) => {
     const files = assets();
 
     res.render('index', {
@@ -54,7 +30,37 @@ app.get('/', (req, res) => {
             css: files["main.css"]
         }
     });
+};
+
+/**
+ * Trust proxy
+ */
+app.enable('trust proxy');
+
+/**
+ * Set template engine
+ */
+app.set('view engine', 'ejs');
+app.set('views', `${__dirname}/template`);
+
+/**
+ * Request logger
+ */
+app.use((req, res, next) => {
+    log.trace(`[WEB][REQUEST]: ${req.originalUrl}`);
+    next();
 });
+
+/**
+ * Serve static public dir
+ */
+app.use(express.static(`${__dirname}/public`));
+
+/**
+ * Configure routers
+ */
+app.get('/', (req, res) => spa(req, res));
+app.get('/product/:slug', (req, res) => spa(req, res));
 
 /**
  * Setup default 404 message

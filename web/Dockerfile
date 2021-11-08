@@ -36,6 +36,9 @@ COPY ./web .
 # Install dependencies
 RUN npm ci --only=production
 
+# Create a production build
+RUN npm run build
+
 #
 # Setup app
 #

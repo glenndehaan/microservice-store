@@ -5,7 +5,11 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon --watch ../ --exec 'node server.js'"
+    "dev": "nodemon --watch ../ --exec 'node server.js'",
+    "prewebpack": "rimraf ./public/dist",
+    "webpack": "webpack --watch --mode development --config ./webpack.config.js",
+    "prebuild": "rimraf ./dist",
+    "build": "NODE_ENV=production webpack --mode production --config ./webpack.config.js"
   },
   "author": "Glenn de Haan",
   "license": "MIT",
@@ -13,7 +17,24 @@
     "nodemon": "^2.0.14"
   },
   "dependencies": {
+    "@babel/core": "^7.6.2",
+    "@babel/plugin-transform-react-jsx": "^7.3.0",
+    "@babel/preset-env": "^7.6.2",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "core-js": "^3.18.2",
+    "css-loader": "^5.2.7",
     "ejs": "^3.1.6",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mini-css-extract-plugin": "^2.2.0",
+    "node-sass": "^6.0.1",
+    "preact": "^10.0.0",
+    "preact-router": "^3.0.1",
+    "regenerator-runtime": "^0.13.9",
+    "rimraf": "^3.0.2",
+    "sass-loader": "^10.2.0",
+    "webpack": "^5.62.1",
+    "webpack-cli": "^4.7.2",
+    "webpack-manifest-plugin": "^4.0.2"
   }
 }
