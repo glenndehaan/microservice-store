@@ -30,7 +30,7 @@ const spa = (req, res) => {
         searchApi: dev ? 'http://localhost:4002' : '/api/search',
         stockApi: dev ? 'http://localhost:4003' : '/api/stock',
         userApi: dev ? 'http://localhost:4004' : '/api/user',
-        wishlistApi: dev ? 'http://localhost:4005' : '/apis/wishlist',
+        wishlistApi: dev ? 'http://localhost:4005' : '/api/wishlist',
         assets: {
             js: files["main.js"],
             css: files["main.css"]

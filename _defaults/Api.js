@@ -80,6 +80,8 @@ class Api {
         this.app.use((req, res, next) => {
             if(dev) {
                 res.set('Access-Control-Allow-Origin', '*');
+                res.set('Access-Control-Allow-Headers', '*');
+                res.set('Access-Control-Allow-Credentials', 'true');
             }
 
             next();
