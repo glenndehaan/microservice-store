@@ -53,7 +53,7 @@ app.set('views', `${__dirname}/template`);
  * Request logger
  */
 app.use((req, res, next) => {
-    log.trace(`[WEB][REQUEST]: ${req.originalUrl}`);
+    log.trace(`[Web][REQUEST]: ${req.originalUrl}`);
     next();
 });
 
@@ -85,5 +85,5 @@ app.disable('x-powered-by');
  * Start listening on port
  */
 app.listen(3000, '0.0.0.0', () => {
-    log.info(`[WEB] App is running on: 0.0.0.0:3000`);
+    log.info(`[Web] App is running on: 0.0.0.0:3000`);
 });
