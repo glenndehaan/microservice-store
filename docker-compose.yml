@@ -146,6 +146,9 @@ services:
       - "80:80" # <== http
       - "8080:8080" # <== dashboard
     command:
+      ###
+      ### https://doc.traefik.io/traefik/reference/static-configuration/cli/
+      ###
       ## API Settings - https://docs.traefik.io/operations/api/, endpoints - https://docs.traefik.io/operations/api/#endpoints ##
       - --api.insecure=true
       - --api.dashboard=true
