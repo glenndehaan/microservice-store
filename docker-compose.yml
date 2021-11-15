@@ -158,6 +158,8 @@ services:
       - --providers.docker.network=web
       ## Entrypoints Settings - https://docs.traefik.io/routing/entrypoints/#configuration ##
       - --entrypoints.web.address=:80
+      ## Traefik Pilot
+      - --pilot.dashboard=false
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
