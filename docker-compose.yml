@@ -124,6 +124,8 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.microservice-web.rule=PathPrefix(`/`)"
       - "traefik.http.routers.microservice-web.entrypoints=web"
+      - "traefik.http.routers.microservice-web.middlewares=microservice-web-compress"
+      - "traefik.http.middlewares.microservice-web-compress.compress=true"
       - "traefik.http.services.microservice-web.loadbalancer.healthcheck.path=/"
       - "traefik.http.services.microservice-web.loadbalancer.healthcheck.interval=30s"
   traefik:
