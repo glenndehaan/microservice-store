@@ -87,6 +87,17 @@ class Api {
             next();
         });
 
+        // X- Headers
+        this.app.use((req, res, next) => {
+            if(dev) {
+                res.set('X-App', 'microservice-store');
+                res.set('X-Service', `${this.service}`);
+                res.set('X-Version', `${this.version}`);
+            }
+
+            next();
+        });
+
         // Setup health check
         this.app.get('/_status', (req, res) => {
             res.json(this.response());
