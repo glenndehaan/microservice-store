@@ -17,6 +17,7 @@ docker-compose up
 ### Web
 * Traefik - Port: 80
 * Web - Port: 3000
+* Assets - Port: 3001
 
 ### API
 * Cart - Port: 4000
