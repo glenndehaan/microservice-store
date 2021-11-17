@@ -114,6 +114,94 @@ api.get('/wishlist/:user', (req, res) => {
 });
 
 /**
+ * Setup wishlist add endpoint
+ */
+api.post('/wishlist/:user/add', (req, res) => {
+    const user = req.params.user;
+    const id = req.body.id;
+
+    client.get(`wishlist_${user}`, (err, wishListRes) => {
+        if(err) {
+            res.status(500).json(500, api.response({
+                error: err
+            }));
+
+            return;
+        }
+
+        if(wishListRes === null) {
+            res.status(404).json(api.response(404, {}));
+            return;
+        }
+
+        const wishlist = JSON.parse(wishListRes);
+
+        if(wishlist.includes(id)) {
+            res.status(409).json(api.response(409, {}));
+            return;
+        }
+
+        wishlist.push(id);
+
+        client.set(`wishlist_${user}`, JSON.stringify(wishlist), (err) => {
+            if(err) {
+                res.status(500).json(api.response(500, {
+                    error: err
+                }));
+
+                return;
+            }
+
+            res.json(api.response(200, wishlist));
+        });
+    });
+});
+
+/**
+ * Setup wishlist remove endpoint
+ */
+api.post('/wishlist/:user/remove', (req, res) => {
+    const user = req.params.user;
+    const id = req.body.id;
+
+    client.get(`wishlist_${user}`, (err, wishListRes) => {
+        if(err) {
+            res.status(500).json(500, api.response({
+                error: err
+            }));
+
+            return;
+        }
+
+        if(wishListRes === null) {
+            res.status(404).json(api.response(404, {}));
+            return;
+        }
+
+        const wishlist = JSON.parse(wishListRes);
+
+        if(!wishlist.includes(id)) {
+            res.status(404).json(api.response(404, {}));
+            return;
+        }
+
+        wishlist.splice(wishlist.indexOf(id), 1);
+
+        client.set(`wishlist_${user}`, JSON.stringify(wishlist), (err) => {
+            if(err) {
+                res.status(500).json(api.response(500, {
+                    error: err
+                }));
+
+                return;
+            }
+
+            res.json(api.response(200, wishlist));
+        });
+    });
+});
+
+/**
  * Start the server
  */
 api.init();
