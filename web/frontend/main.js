@@ -27,6 +27,10 @@ class App extends Component {
         super();
 
         this.state = {
+            modules: {
+                cart: true,
+                wishlist: true
+            },
             cart: [],
             wishlist: []
         };
@@ -66,6 +70,13 @@ class App extends Component {
             this.setState({
                 cart: cart.data
             });
+        } else {
+            this.setState({
+                modules: {
+                    ...this.state.modules,
+                    cart: false
+                }
+            });
         }
     }
 
@@ -81,6 +92,13 @@ class App extends Component {
             this.setState({
                 wishlist: wishlist.data
             });
+        } else {
+            this.setState({
+                modules: {
+                    ...this.state.modules,
+                    wishlist: false
+                }
+            });
         }
     }
 
@@ -90,9 +108,11 @@ class App extends Component {
      * @returns {*}
      */
     render() {
+        const {modules, cart, wishlist} = this.state;
+
         return (
             <div id="root">
-                <Menu/>
+                <Menu modules={modules} cart={cart} wishlist={wishlist}/>
                 <div>
                     <Router>
                         <Home path="/"/>
