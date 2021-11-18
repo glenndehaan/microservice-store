@@ -96,7 +96,7 @@ export default class Product extends Component {
                                 ))}
                                 <p dangerouslySetInnerHTML={{__html: product.description}}/>
                                 <p className="italic">{stock.stock} in stock</p>
-                                <button className="px-4 py-2 mt-4 text-base font-semibold leading-6 text-black transition-colors duration-200 bg-gray-200 rounded-lg outline-none hover:bg-white md:px-6 md:text-lg disabled:bg-gray-800 disabled:text-white disabled:cursor-not-allowed disabled:hover:bg-gray-800" disabled={stock.stock < 1}>
+                                <button className="px-4 py-2 mt-4 text-base font-semibold leading-6 text-black transition-colors duration-200 bg-gray-200 rounded-lg outline-none hover:bg-white md:px-6 md:text-lg disabled:bg-gray-900 disabled:text-white disabled:cursor-not-allowed disabled:hover:bg-gray-900" disabled={stock.stock < 1}>
                                     {stock.stock > 0 ? 'Add to cart' : 'Out of stock'}
                                 </button>
                             </div>
