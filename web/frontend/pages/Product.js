@@ -74,32 +74,30 @@ export default class Product extends Component {
                                     {product.name}
                                 </h1>
                                 <div className="mb-4 tracking-tight text-1xl md:text-2xl">€{product.price && product.price.value}</div>
-                                {product.colors && (
+                                {product.options.map((option) => (
                                     <div>
-                                        <h3 className="mb-2 text-sm font-semibold uppercase">Colors</h3>
+                                        <h3 className="mb-2 text-sm font-semibold uppercase">{option.name}</h3>
                                         <div className="inline-grid grid-flow-col gap-x-4">
-                                            {product.colors.map(({ color }) => (
-                                                <button key={color} style={{ backgroundColor: color }} className="flex items-center justify-center w-12 h-12 border border-gray-200 rounded-full"/>
-                                            ))}
+                                            {option.values.map((value) => {
+                                                if(value.color) {
+                                                    return (
+                                                        <button key={value.label} style={{ backgroundColor: value.color }} className="flex items-center justify-center w-12 h-12 border border-gray-200 rounded-full"/>
+                                                    )
+                                                } else {
+                                                    return (
+                                                        <button key={value.label} className="flex items-center justify-center w-12 h-12 border border-gray-200 rounded-full hover:bg-white hover:text-black">
+                                                            {value.label}
+                                                        </button>
+                                                    )
+                                                }
+                                            })}
                                         </div>
                                     </div>
-                                )}
-                                {product.sizes && (
-                                    <div>
-                                        <h3 className="mb-2 text-sm font-semibold uppercase">Sizes</h3>
-                                        <div className="inline-grid grid-flow-col gap-x-4">
-                                            {product.sizes.map(({ size }) => (
-                                                <button key={size} className="flex items-center justify-center w-12 h-12 border border-gray-200 rounded-full hover:bg-white hover:text-black">
-                                                    {size}
-                                                </button>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
+                                ))}
                                 <p dangerouslySetInnerHTML={{__html: product.description}}/>
                                 <p className="italic">{stock.stock} in stock</p>
-                                <button className="px-4 py-2 mt-4 text-base font-semibold leading-6 text-black transition-colors duration-200 bg-gray-200 rounded-lg outline-none hover:bg-white md:px-6 md:text-lg">
-                                    Add to cart
+                                <button className="px-4 py-2 mt-4 text-base font-semibold leading-6 text-black transition-colors duration-200 bg-gray-200 rounded-lg outline-none hover:bg-white md:px-6 md:text-lg disabled:bg-gray-800 disabled:text-white disabled:cursor-not-allowed disabled:hover:bg-gray-800" disabled={stock.stock < 1}>
+                                    {stock.stock > 0 ? 'Add to cart' : 'Out of stock'}
                                 </button>
                             </div>
                         </div>
