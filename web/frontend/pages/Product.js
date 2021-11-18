@@ -66,7 +66,7 @@ export default class Product extends Component {
                 <div className="max-w-screen-lg p-8 mx-auto text-gray-100">
                     <div className="grid md:grid-cols-2 gap-y-8 gap-x-16">
                         <div className="w-full">
-                            <img src={product.image} className="object-cover w-full h-full overflow-hidden bg-gray-900 rounded-xl"/>
+                            <img src={product.image} className="object-cover w-full h-full overflow-hidden bg-gray-900 rounded-xl" alt={`${product.name} Image`}/>
                         </div>
                         <div>
                             <div className="grid gap-y-4">
