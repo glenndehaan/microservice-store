@@ -63,6 +63,13 @@ app.use((req, res, next) => {
 app.use(express.static(`${__dirname}/public`));
 
 /**
+ * Serve assets on dev
+ */
+if(dev) {
+    app.use('/assets', express.static(`${__dirname}/../assets/src`));
+}
+
+/**
  * Configure routers
  */
 app.get('/', (req, res) => spa(req, res));
