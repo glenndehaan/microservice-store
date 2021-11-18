@@ -19,6 +19,8 @@ import Product from './pages/Product';
 
 import fetch from './utils/fetch';
 
+import 'tailwindcss/tailwind.css';
+
 class App extends Component {
     /**
      * Constructor

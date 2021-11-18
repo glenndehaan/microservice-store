@@ -40,6 +40,14 @@ const config = {
                 }
             },
             {
+                test:/\.css$/,
+                use:[
+                    MiniCssExtractPlugin.loader,
+                    "css-loader",
+                    "postcss-loader"
+                ]
+            },
+            {
                 test: /global\.scss$/,
                 use: [
                     MiniCssExtractPlugin.loader,
@@ -48,7 +56,7 @@ const config = {
                 ]
             },
             {
-                test: /\.(css|scss)$/,
+                test: /\.scss$/,
                 exclude: /global\.scss$/,
                 use: [
                     MiniCssExtractPlugin.loader,
