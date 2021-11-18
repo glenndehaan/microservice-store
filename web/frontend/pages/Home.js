@@ -10,8 +10,7 @@ export default class Home extends Component {
         super();
 
         this.state = {
-            products: [],
-            stock: []
+            products: []
         };
     }
 
@@ -20,7 +19,6 @@ export default class Home extends Component {
      */
     componentWillMount() {
         this.getProducts();
-        this.getStock();
     }
 
     /**
@@ -37,28 +35,12 @@ export default class Home extends Component {
     }
 
     /**
-     * Get all stock from the API
-     */
-    async getStock() {
-        const stock = await fetch(`${window.expressConfig.stockApi}`);
-
-        if(stock && stock.status.success) {
-            this.setState({
-                stock: stock.data
-            });
-        }
-    }
-
-    /**
      * Preact render function
      *
      * @returns {*}
      */
     render() {
-        const {products, stock} = this.state;
-
-        console.log('products', products);
-        console.log('stock', stock);
+        const {products} = this.state;
 
         return (
             <main>

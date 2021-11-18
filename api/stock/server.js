@@ -35,8 +35,9 @@ api.get('/:slug', (req, res) => {
         return item.slug === slug;
     });
     const statusCode = data.length < 1 ? 404 : 200;
+    const result = data.length < 1 ? {} : data[0];
 
-    res.status(statusCode).json(api.response(statusCode, data));
+    res.status(statusCode).json(api.response(statusCode, result));
 });
 
 /**
