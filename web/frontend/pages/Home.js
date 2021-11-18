@@ -78,7 +78,7 @@ export default class Home extends Component {
                                     </h2>
                                 </div>
 
-                                <img src={product.image} className="absolute w-full h-full object-cover bg-gray-900"/>
+                                <img src={product.image} alt={`${product.name} Image`} className="absolute w-full h-full object-cover bg-gray-900"/>
                             </a>
                         </a>
                     ))}
