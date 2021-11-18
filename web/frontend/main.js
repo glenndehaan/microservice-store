@@ -13,6 +13,7 @@ import Router from 'preact-router';
 import Cookies from 'js-cookie';
 
 import Menu from './components/Menu';
+import Footer from './components/Footer';
 
 import Home from './pages/Home';
 import Product from './pages/Product';
@@ -121,6 +122,7 @@ class App extends Component {
                         <Product path="/product/:slug"/>
                     </Router>
                 </div>
+                <Footer/>
             </div>
         );
     }
