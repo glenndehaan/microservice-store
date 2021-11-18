@@ -74,18 +74,18 @@ export default class Product extends Component {
                                     {product.name}
                                 </h1>
                                 <div className="mb-4 tracking-tight text-1xl md:text-2xl">€{product.price && product.price.value}</div>
-                                {product.options.map((option) => (
-                                    <div>
+                                {product.options.map((option, key) => (
+                                    <div key={key}>
                                         <h3 className="mb-2 text-sm font-semibold uppercase">{option.name}</h3>
                                         <div className="inline-grid grid-flow-col gap-x-4">
-                                            {option.values.map((value) => {
+                                            {option.values.map((value, key) => {
                                                 if(value.color) {
                                                     return (
-                                                        <button key={value.label} style={{ backgroundColor: value.color }} className="flex items-center justify-center w-12 h-12 border border-gray-200 rounded-full"/>
+                                                        <button key={key} style={{ backgroundColor: value.color }} className="flex items-center justify-center w-12 h-12 border border-gray-200 rounded-full"/>
                                                     )
                                                 } else {
                                                     return (
-                                                        <button key={value.label} className="flex items-center justify-center w-12 h-12 border border-gray-200 rounded-full hover:bg-white hover:text-black">
+                                                        <button key={key} className="flex items-center justify-center w-12 h-12 border border-gray-200 rounded-full hover:bg-white hover:text-black">
                                                             {value.label}
                                                         </button>
                                                     )

@@ -1,9 +1,38 @@
 import {h, Component} from 'preact';
+import { route } from 'preact-router';
 
 import Cart from './icons/Cart';
 import Heart from './icons/Heart';
 
 export default class Menu extends Component {
+    /**
+     * Constructor
+     */
+    constructor() {
+        super();
+
+        this.searchBar = null;
+    }
+
+    /**
+     * Function runs after component mounts
+     */
+    componentDidMount() {
+        const params = (new URL(document.location)).searchParams;
+        const search = params.get('search');
+        this.searchBar.value = typeof search !== "undefined" ? search : '';
+    }
+
+    /**
+     * Handle search
+     *
+     * @param e
+     */
+    handleSearch(e) {
+        e.preventDefault();
+        route(`/?search=${this.searchBar.value}`);
+    }
+
     /**
      * Preact render function
      *
@@ -23,9 +52,9 @@ export default class Menu extends Component {
                     </a>
                 </div>
                 <div className="flex-grow w-full max-w-2xl">
-                    <form>
+                    <form onSubmit={(e) => this.handleSearch(e)}>
                         <label htmlFor="search" style={{ position: 'absolute', top: '-1000px', left: '-1000px' }}>Search for products</label>
-                        <input id="search" name="search" placeholder="Search for products..." className="w-full h-10 px-4 text-sm bg-gray-900 border border-gray-800 rounded appearance-none text-default bg-input focus:border-accent focus:outline-none border-darker"/>
+                        <input id="search" name="search" placeholder="Search for products..." className="w-full h-10 px-4 text-sm bg-gray-900 border border-gray-800 rounded appearance-none text-default bg-input focus:border-accent focus:outline-none border-darker" ref={c => this.searchBar = c}/>
                     </form>
                 </div>
                 <div className="flex justify-end w-32">

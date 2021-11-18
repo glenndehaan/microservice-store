@@ -37,7 +37,18 @@ api.get('/', (req, res) => {
         return item.description.toLowerCase().includes(term.toLowerCase());
     });
 
-    res.json(api.response(200, [...nameSearch, ...descriptionSearch]));
+    const combined = [...nameSearch, ...descriptionSearch];
+
+    const result = [];
+    const map = new Map();
+    for (const item of combined) {
+        if(!map.has(item.id)){
+            map.set(item.id, true);
+            result.push(item);
+        }
+    }
+
+    res.json(api.response(200, result));
 });
 
 /**
