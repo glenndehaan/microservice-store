@@ -62,10 +62,7 @@ export default class Home extends Component {
 
         return (
             <main>
-                Home
-                <pre className="code"><label>JSON</label><code>Products:<br/>{JSON.stringify(products, undefined, 2)}</code></pre>
-                <pre className="code"><label>JSON</label><code>Stock:<br/>{JSON.stringify(stock, undefined, 2)}</code></pre>
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-screen-lg p-8 mx-auto">
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-screen-lg p-8 mx-auto md:px-8">
                     {products.map((product) => (
                         <a href={`/product/${product.slug}`} key={product.slug}>
                             <a className="rounded-xl line-height-0 grid gap-y-2 overflow-hidden relative w-100 pb-[100%]">

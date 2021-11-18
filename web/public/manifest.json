@@ -1,0 +1,31 @@
+{
+  "name": "ACME MicroService Merch Store",
+  "short_name": "ACME Merch",
+  "description": "An example MicroService Merch Store",
+  "icons": [
+    {
+      "src": "./images/icon/logo_128x128.png",
+      "type": "image/png",
+      "sizes": "128x128",
+      "purpose": "any"
+    },
+    {
+      "src": "./images/icon/logo_192x192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any"
+    },
+    {
+      "src": "./images/icon/logo_512x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    }
+  ],
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "categories": ["shop", "website"],
+  "background_color": "#0d0d0d",
+  "theme_color": "#0d0d0d"
+}

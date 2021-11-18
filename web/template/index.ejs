@@ -1,19 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>MicroService Store</title>
+        <title>ACME MicroService Merch Store</title>
 
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui">
-        <meta name="description" content="An example MicroService Store">
+        <meta name="description" content="An example MicroService Merch Store">
 
-        <meta property="og:title" content="MicroService Store">
+        <meta property="og:title" content="ACME MicroService Merch Store">
         <meta property="og:type" content="website">
-        <meta property="og:description" content="An example MicroService Store">
+        <meta property="og:description" content="An example MicroService Merch Store">
+
+        <link rel="manifest" href="/manifest.json">
+        <link rel="shortcut icon" href="/images/favicon.ico">
+        <link rel="apple-touch-icon" href="/images/icon/logo_512x512.png">
+
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+
+        <meta name="theme-color" content="#0d0d0d">
 
         <link href="/dist/<%= assets.css %>" rel="stylesheet" type="text/css"/>
     </head>
     <body>
+        <noscript>Javascript must be enabled!</noscript>
         <script>
             window.expressConfig = {
                 protocol: '<%= protocol %>',
