@@ -2,6 +2,7 @@
  * Import base packages
  */
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const app = express();
 
 /**
@@ -50,6 +51,11 @@ app.set('view engine', 'ejs');
 app.set('views', `${__dirname}/template`);
 
 /**
+ * Enable cookie parser support
+ */
+app.use(cookieParser());
+
+/**
  * Request logger
  */
 app.use((req, res, next) => {
@@ -67,6 +73,19 @@ app.use(express.static(`${__dirname}/public`));
  */
 if(dev) {
     app.use('/assets', express.static(`${__dirname}/../assets/src`));
+}
+
+/**
+ * Set static data
+ */
+if(dev) {
+    app.use((req, res, next) => {
+        if(req.cookies !== "ffffffff-ffff-ffff-ffff-ffffffffffff") {
+            res.cookie('user', "ffffffff-ffff-ffff-ffff-ffffffffffff");
+        }
+
+        next();
+    });
 }
 
 /**

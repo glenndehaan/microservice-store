@@ -35,6 +35,22 @@ const client = redis.createClient({
 });
 
 /**
+ * Create local test storage
+ */
+if(dev) {
+    client.get(`cart_ffffffff-ffff-ffff-ffff-ffffffffffff`, (err, cartRes) => {
+        if (err) {
+            return;
+        }
+
+        if (cartRes === null) {
+            client.set(`cart_ffffffff-ffff-ffff-ffff-ffffffffffff`, JSON.stringify([]));
+            client.set(`wishlist_ffffffff-ffff-ffff-ffff-ffffffffffff`, JSON.stringify([]));
+        }
+    });
+}
+
+/**
  * Let modules add endpoints
  */
 cart(api, client);
