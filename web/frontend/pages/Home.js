@@ -82,27 +82,29 @@ export default class Home extends Component {
 
         return (
             <main>
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-screen-lg p-8 mx-auto md:px-8">
+                <div className="grid max-w-screen-lg grid-cols-1 gap-6 p-4 mx-auto sm:grid-cols-2 lg:grid-cols-3 md:px-8">
                     {products.map((product, key) => (
-                        <a href={`/product/${product.slug}`} key={key}>
-                            <a className="rounded-xl line-height-0 grid gap-y-2 overflow-hidden relative w-100 pb-[100%] text-gray-100">
-                                <div className="absolute z-10">
-                                    <h1 className="bg-gray-1000 px-4 py-2 text-lg font-semibold lg:text-xl max-w-[80%]">
-                                        {product.name}
-                                    </h1>
-                                    <h2 className="bg-gray-1000 px-4 py-2 inline-block text-xs font-semibold">
+                        <div className="rounded-xl line-height-0 overflow-hidden relative w-100 pb-[100%] text-gray-100">
+                            <a href={`/product/${product.slug}`} key={key} className="grid gap-y-2">
+                                <div className="absolute z-10 w-full max-w-[80%]">
+                                    <div>
+                                        <div className="bg-gray-1000 px-4 py-2 text-lg font-semibold lg:text-xl max-w-[80%]">
+                                            {product.name}
+                                        </div>
+                                    </div>
+                                    <div className="inline-block px-4 py-2 text-xs font-semibold bg-gray-1000">
                                         €{product.price.value}
-                                    </h2>
+                                    </div>
                                 </div>
-                                {modules.wishlist &&
-                                    <button className="absolute right-0 z-10 p-2 bg-gray-1000 hover:bg-gray-800" onClick={() => this.updateWishlist(product.id, wishlist.includes(product.id) ? 'remove' : 'add')}>
-                                        <Heart fill={wishlist.includes(product.id)}/>
-                                    </button>
-                                }
 
-                                <img src={product.image} alt={`${product.name} Image`} className="absolute w-full h-full object-cover bg-gray-900"/>
+                                <img src={product.image} alt={`${product.name} Image`} className="absolute object-cover w-full h-full bg-gray-900"/>
                             </a>
-                        </a>
+                            {modules.wishlist &&
+                                <button className="absolute right-0 z-10 p-2 bg-gray-1000 hover:bg-gray-800" onClick={() => this.updateWishlist(product.id, wishlist.includes(product.id) ? 'remove' : 'add')}>
+                                    <Heart fill={wishlist.includes(product.id)}/>
+                                </button>
+                            }
+                        </div>
                     ))}
                 </div>
             </main>
