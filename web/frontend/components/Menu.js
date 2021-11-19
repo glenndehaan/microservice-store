@@ -58,12 +58,16 @@ export default class Menu extends Component {
                     </form>
                 </div>
                 <div className="flex justify-end w-32">
-                    <button name="Cart" ariaLabel="Cart" className="flex items-center justify-center w-12 h-12 text-white cursor-pointer rounded-xl hover:bg-white hover:bg-opacity-5">
-                        <Cart/>
-                    </button>
-                    <button name="Wishlist" ariaLabel="Wishlist" className="flex items-center justify-center w-12 h-12 text-white cursor-pointer rounded-xl hover:bg-white hover:bg-opacity-5">
-                        <Heart/>
-                    </button>
+                    {modules.cart &&
+                        <button name="Cart" ariaLabel="Cart" className="flex items-center justify-center w-12 h-12 text-white cursor-pointer rounded-xl hover:bg-white hover:bg-opacity-5">
+                            <Cart/>
+                        </button>
+                    }
+                    {modules.wishlist &&
+                        <button name="Wishlist" ariaLabel="Wishlist" className="flex items-center justify-center w-12 h-12 text-white cursor-pointer rounded-xl hover:bg-white hover:bg-opacity-5">
+                            <Heart/>
+                        </button>
+                    }
                 </div>
             </header>
         );

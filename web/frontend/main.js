@@ -118,8 +118,8 @@ class App extends Component {
                 <Menu modules={modules} cart={cart} wishlist={wishlist}/>
                 <div>
                     <Router>
-                        <Home path="/"/>
-                        <Product path="/product/:slug"/>
+                        <Home path="/" wishlist={wishlist}/>
+                        <Product path="/product/:slug" modules={modules} cart={cart} wishlist={wishlist}/>
                     </Router>
                 </div>
                 <Footer/>
