@@ -89,11 +89,9 @@ class Api {
 
         // X- Headers
         this.app.use((req, res, next) => {
-            if(dev) {
-                res.set('X-App', 'microservice-store');
-                res.set('X-Service', `${this.service}`);
-                res.set('X-Version', `${this.version}`);
-            }
+            res.set('X-App', 'microservice-store');
+            res.set('X-Service', `${this.service}`);
+            res.set('X-Version', `${this.version}`);
 
             next();
         });
