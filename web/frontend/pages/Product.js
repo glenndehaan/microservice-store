@@ -1,5 +1,7 @@
 import { h, Component } from 'preact';
 
+import Heart from '../components/icons/Heart';
+
 import fetch from '../utils/fetch';
 
 export default class Product extends Component {
@@ -67,8 +69,13 @@ export default class Product extends Component {
             <main>
                 <div className="max-w-screen-lg p-8 mx-auto text-gray-100">
                     <div className="grid md:grid-cols-2 gap-y-8 gap-x-16">
-                        <div className="w-full">
+                        <div className="relative w-full overflow-hidden rounded-xl">
                             <img src={product.image} className="object-cover w-full h-full overflow-hidden bg-gray-900 rounded-xl" alt={`${product.name} Image`}/>
+                            {modules.wishlist &&
+                                <button className="absolute top-0 right-0 z-10 p-4 bg-gray-1000 hover:bg-gray-800">
+                                    <Heart/>
+                                </button>
+                            }
                         </div>
                         <div>
                             <div className="grid gap-y-4">
