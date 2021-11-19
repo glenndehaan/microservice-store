@@ -54,6 +54,11 @@ export default class Home extends Component {
     render() {
         const {products} = this.state;
 
+        // @todo add 404 alternative page
+        if(products.length < 1) {
+            return null;
+        }
+
         return (
             <main>
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-screen-lg p-8 mx-auto md:px-8">

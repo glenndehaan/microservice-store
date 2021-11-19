@@ -55,9 +55,10 @@ export default class Product extends Component {
      * @returns {*}
      */
     render() {
-        const {product, stock} = this.state;
         const {modules} = this.props;
+        const {product, stock} = this.state;
 
+        // @todo add 404 alternative page
         if(!product.name) {
             return null;
         }
