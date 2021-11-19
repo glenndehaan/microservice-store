@@ -3,6 +3,7 @@ import { h, Component } from 'preact';
 import Heart from '../components/icons/Heart';
 
 import fetch from '../utils/fetch';
+import wishlist from '../utils/wishlist';
 
 export default class Home extends Component {
     /**
@@ -49,12 +50,29 @@ export default class Home extends Component {
     }
 
     /**
+     * Add/remove an item to/from the wishlist
+     *
+     * @param id
+     * @param action
+     * @return {Promise<void>}
+     */
+    async updateWishlist(id, action) {
+        if(action === "add") {
+            await wishlist.add(id);
+            this.props.updateWishlist();
+        } else {
+            await wishlist.remove(id);
+            this.props.updateWishlist();
+        }
+    }
+
+    /**
      * Preact render function
      *
      * @returns {*}
      */
     render() {
-        const {modules} = this.props;
+        const {modules, wishlist} = this.props;
         const {products} = this.state;
 
         // @todo add 404 alternative page
@@ -77,8 +95,8 @@ export default class Home extends Component {
                                     </h2>
                                 </div>
                                 {modules.wishlist &&
-                                    <button className="absolute right-0 z-10 p-2 bg-gray-1000 hover:bg-gray-800">
-                                        <Heart/>
+                                    <button className="absolute right-0 z-10 p-2 bg-gray-1000 hover:bg-gray-800" onClick={() => this.updateWishlist(product.id, wishlist.includes(product.id) ? 'remove' : 'add')}>
+                                        <Heart fill={wishlist.includes(product.id)}/>
                                     </button>
                                 }
 

@@ -3,6 +3,7 @@ import { h, Component } from 'preact';
 import Heart from '../components/icons/Heart';
 
 import fetch from '../utils/fetch';
+import wishlist from "../utils/wishlist";
 
 export default class Product extends Component {
     /**
@@ -52,12 +53,29 @@ export default class Product extends Component {
     }
 
     /**
+     * Add/remove an item to/from the wishlist
+     *
+     * @param id
+     * @param action
+     * @return {Promise<void>}
+     */
+    async updateWishlist(id, action) {
+        if(action === "add") {
+            await wishlist.add(id);
+            this.props.updateWishlist();
+        } else {
+            await wishlist.remove(id);
+            this.props.updateWishlist();
+        }
+    }
+
+    /**
      * Preact render function
      *
      * @returns {*}
      */
     render() {
-        const {modules} = this.props;
+        const {modules, wishlist} = this.props;
         const {product, stock} = this.state;
 
         // @todo add 404 alternative page
@@ -72,8 +90,8 @@ export default class Product extends Component {
                         <div className="relative w-full overflow-hidden rounded-xl">
                             <img src={product.image} className="object-cover w-full h-full overflow-hidden bg-gray-900 rounded-xl" alt={`${product.name} Image`}/>
                             {modules.wishlist &&
-                                <button className="absolute top-0 right-0 z-10 p-4 bg-gray-1000 hover:bg-gray-800">
-                                    <Heart/>
+                                <button className="absolute top-0 right-0 z-10 p-4 bg-gray-1000 hover:bg-gray-800" onClick={() => this.updateWishlist(product.id, wishlist.includes(product.id) ? 'remove' : 'add')}>
+                                    <Heart fill={wishlist.includes(product.id)}/>
                                 </button>
                             }
                         </div>

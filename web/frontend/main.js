@@ -118,8 +118,8 @@ class App extends Component {
                 <Menu modules={modules} cart={cart} wishlist={wishlist}/>
                 <div>
                     <Router>
-                        <Home path="/" modules={modules} wishlist={wishlist}/>
-                        <Product path="/product/:slug" modules={modules} cart={cart} wishlist={wishlist}/>
+                        <Home path="/" modules={modules} wishlist={wishlist} updateWishlist={() => this.getWishlist(Cookies.get('user'))}/>
+                        <Product path="/product/:slug" modules={modules} cart={cart} wishlist={wishlist} updateWishlist={() => this.getWishlist(Cookies.get('user'))}/>
                     </Router>
                 </div>
                 <Footer/>
