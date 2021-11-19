@@ -22,15 +22,30 @@ export default class Product extends Component {
      * Function runs then component mounts
      */
     componentWillMount() {
-        this.getProduct();
-        this.getStock();
+        this.getProduct(this.props);
+        this.getStock(this.props);
+    }
+
+    /**
+     * Function runs before component updates
+     *
+     * @param nextProps
+     */
+    componentWillUpdate(nextProps) {
+        if(nextProps !== this.props) {
+            this.getProduct(nextProps);
+            this.getStock(nextProps);
+        }
     }
 
     /**
      * Get all products from the API
+     *
+     * @param props
+     * @return {Promise<void>}
      */
-    async getProduct() {
-        const product = await fetch(`${window.expressConfig.productApi}/${this.props.slug}`);
+    async getProduct(props) {
+        const product = await fetch(`${window.expressConfig.productApi}/${props.slug}`);
 
         if(product && product.status.success) {
             this.setState({
@@ -41,9 +56,12 @@ export default class Product extends Component {
 
     /**
      * Get all stock from the API
+     *
+     * @param props
+     * @return {Promise<void>}
      */
-    async getStock() {
-        const stock = await fetch(`${window.expressConfig.stockApi}/${this.props.slug}`);
+    async getStock(props) {
+        const stock = await fetch(`${window.expressConfig.stockApi}/${props.slug}`);
 
         if(stock && stock.status.success) {
             this.setState({

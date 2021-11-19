@@ -1,8 +1,20 @@
 import {h, Component, Fragment} from 'preact';
 
 import Close from './icons/Close';
+import wishlist from "../utils/wishlist";
 
 export default class Panel extends Component {
+    /**
+     * Remove an item from the wishlist
+     *
+     * @param id
+     * @return {Promise<void>}
+     */
+    async removeWishlist(id) {
+        await wishlist.remove(id);
+        this.props.updateWishlist();
+    }
+
     /**
      * Preact render function
      *
@@ -27,25 +39,40 @@ export default class Panel extends Component {
                                 {products.map((product) => (
                                     <div key={product.uid} className="grid grid-flow-row gap-y-2">
                                         <div className="grid grid-cols-[64px,auto,64px] px-4 gap-x-2">
-                                            <img src={product.image} className="object-cover w-16 h-16 bg-gray-900"/>
+                                            <a href={`/product/${product.slug}`} onClick={close}>
+                                                <img src={product.image} className="object-cover w-16 h-16 bg-gray-900"/>
+                                            </a>
                                             <h1 className="py-2 text-sm font-semibold">
-                                                {product.name}
+                                                <a href={`/product/${product.slug}`} onClick={close}>
+                                                    {product.name}
+                                                </a>
                                             </h1>
                                             <h2 className="inline-block py-2 text-xs text-right">
                                                 <div>€{product.price.value}</div>
-                                                <div className="font-semibold">x8</div>
+                                                {type === "cart" &&
+                                                    <div className="font-semibold">x8</div>
+                                                }
                                             </h2>
                                         </div>
                                         <div className="grid grid-cols-[auto,48px,48px] px-4 gap-x-2">
-                                            <button className="inline-block py-2 text-xs font-semibold text-center uppercase bg-gray-800 rounded-md hover:bg-gray-700">
-                                                Remove
-                                            </button>
-                                            <button className="inline-block py-2 text-xs font-semibold text-center uppercase bg-gray-800 rounded-md hover:bg-gray-700">
-                                                +
-                                            </button>
-                                            <button className="inline-block py-2 text-xs font-semibold text-center uppercase bg-gray-800 rounded-md hover:bg-gray-700">
-                                                -
-                                            </button>
+                                            {type === "wishlist" &&
+                                                <button className="inline-block py-2 text-xs font-semibold text-center uppercase bg-gray-800 rounded-md hover:bg-gray-700" onClick={() => this.removeWishlist(product.id)}>
+                                                    Remove
+                                                </button>
+                                            }
+                                            {type === "cart" &&
+                                                <>
+                                                    <button className="inline-block py-2 text-xs font-semibold text-center uppercase bg-gray-800 rounded-md hover:bg-gray-700">
+                                                        Remove
+                                                    </button>
+                                                    <button className="inline-block py-2 text-xs font-semibold text-center uppercase bg-gray-800 rounded-md hover:bg-gray-700">
+                                                        +
+                                                    </button>
+                                                    <button className="inline-block py-2 text-xs font-semibold text-center uppercase bg-gray-800 rounded-md hover:bg-gray-700">
+                                                        -
+                                                    </button>
+                                                </>
+                                            }
                                         </div>
                                     </div>
                                 ))}
@@ -57,7 +84,7 @@ export default class Panel extends Component {
                                 <ul className="pb-2">
                                     <li className="flex justify-between py-1">
                                         <span>Subtotal</span>
-                                        <span>$2,011.31</span>
+                                        <span>€0,00</span>
                                     </li>
                                     <li className="flex justify-between py-1">
                                         <span>Taxes</span>
@@ -70,7 +97,7 @@ export default class Panel extends Component {
                                 </ul>
                                 <div className="flex justify-between py-3 mb-2 font-bold border-t border-gray-700">
                                     <span>Total</span>
-                                    <span>$2,011.31</span>
+                                    <span>€0,00</span>
                                 </div>
                                 <div></div>
                             </div>

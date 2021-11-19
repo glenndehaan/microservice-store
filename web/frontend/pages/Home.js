@@ -13,7 +13,7 @@ export default class Home extends Component {
         super();
 
         this.state = {
-            products: []
+            searchResults: []
         };
     }
 
@@ -21,7 +21,7 @@ export default class Home extends Component {
      * Function runs then component mounts
      */
     componentWillMount() {
-        this.getProducts(this.props);
+        this.getSearchResults(this.props);
     }
 
     /**
@@ -31,20 +31,27 @@ export default class Home extends Component {
      */
     componentWillUpdate(nextProps) {
         if(nextProps !== this.props) {
-            this.getProducts(nextProps);
+            this.getSearchResults(nextProps);
         }
     }
 
     /**
-     * Get all products from the API
+     * Get all products from the search API
      */
-    async getProducts(props) {
+    async getSearchResults(props) {
         const search = typeof props.search !== "undefined" ? props.search : false;
-        const products = await fetch(!search ? `${window.expressConfig.productApi}` : `${window.expressConfig.searchApi}?term=${search}`);
 
-        if(products && products.status.success) {
+        if(search) {
+            const products = await fetch(`${window.expressConfig.searchApi}?term=${search}`);
+
+            if (products && products.status.success) {
+                this.setState({
+                    searchResults: products.data
+                });
+            }
+        } else {
             this.setState({
-                products: products.data
+                searchResults: []
             });
         }
     }
@@ -73,7 +80,7 @@ export default class Home extends Component {
      */
     render() {
         const {modules, wishlist} = this.props;
-        const {products} = this.state;
+        const products = this.state.searchResults.length > 0 ? this.state.searchResults : this.props.products;
 
         // @todo add 404 alternative page
         if(products.length < 1) {

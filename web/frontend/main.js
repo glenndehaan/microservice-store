@@ -35,7 +35,8 @@ class App extends Component {
                 wishlist: true
             },
             cart: [],
-            wishlist: []
+            wishlist: [],
+            products: []
         };
 
         window.site = {};
@@ -59,6 +60,8 @@ class App extends Component {
             this.getCart(user);
             this.getWishlist(user);
         }
+
+        this.getProducts(this.props);
     }
 
     /**
@@ -106,20 +109,33 @@ class App extends Component {
     }
 
     /**
+     * Get all products from the API
+     */
+    async getProducts() {
+        const products = await fetch(`${window.expressConfig.productApi}`);
+
+        if(products && products.status.success) {
+            this.setState({
+                products: products.data
+            });
+        }
+    }
+
+    /**
      * Preact render function
      *
      * @returns {*}
      */
     render() {
-        const {modules, cart, wishlist} = this.state;
+        const {modules, cart, wishlist, products} = this.state;
 
         return (
             <div id="root">
-                <Menu modules={modules} cart={cart} wishlist={wishlist}/>
+                <Menu modules={modules} cart={cart} wishlist={wishlist} products={products} updateWishlist={() => this.getWishlist(Cookies.get('user'))}/>
                 <div>
                     <Router>
-                        <Home path="/" modules={modules} wishlist={wishlist} updateWishlist={() => this.getWishlist(Cookies.get('user'))}/>
-                        <Product path="/product/:slug" modules={modules} cart={cart} wishlist={wishlist} updateWishlist={() => this.getWishlist(Cookies.get('user'))}/>
+                        <Home path="/" modules={modules} products={products} wishlist={wishlist} updateWishlist={() => this.getWishlist(Cookies.get('user'))}/>
+                        <Product path="/product/:slug" modules={modules} products={products} cart={cart} wishlist={wishlist} updateWishlist={() => this.getWishlist(Cookies.get('user'))}/>
                     </Router>
                 </div>
                 <Footer/>

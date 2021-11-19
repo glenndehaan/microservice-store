@@ -84,19 +84,22 @@ export default class Menu extends Component {
      * @returns {*}
      */
     render() {
-        const {modules, cart, wishlist} = this.props;
+        const {modules, cart, wishlist, products, updateWishlist} = this.props;
         const {cartOpen, wishlistOpen} = this.state;
-        console.log('modules', modules);
-        console.log('cart', cart);
-        console.log('wishlist', wishlist);
+        const cartProducts = products.filter((item) => {
+            return cart.includes(item.id);
+        });
+        const wishlistProducts = products.filter((item) => {
+            return wishlist.includes(item.id);
+        });
 
         return (
             <header className="flex items-center justify-between max-w-screen-xl p-4 mx-auto text-gray-100 md:px-8">
                 {cartOpen &&
-                    <Panel type="cart" products={[]} close={() => this.closePanel('cart')}/>
+                    <Panel type="cart" products={cartProducts} close={() => this.closePanel('cart')} updateWishlist={updateWishlist}/>
                 }
                 {wishlistOpen &&
-                    <Panel type="wishlist" products={[]} close={() => this.closePanel('wishlist')}/>
+                    <Panel type="wishlist" products={wishlistProducts} close={() => this.closePanel('wishlist')} updateWishlist={updateWishlist}/>
                 }
                 <div className="w-32">
                     <a href="/">
