@@ -14,16 +14,16 @@ export default class Footer extends Component {
                         <a href="/">Home</a>
                     </span>
                     <span className="py-3 md:py-0 md:pb-4">
-                        <a href="">About</a>
+                        <a href="/about">About</a>
                     </span>
                     <span className="py-3 md:py-0 md:pb-4">
-                        <a href="">Terms of use</a>
+                        <a href="/terms-use">Terms of use</a>
                     </span>
                     <span className="py-3 md:py-0 md:pb-4">
-                        <a href="">Shipping &amp; Returns</a>
+                        <a href="/shipping-returns">Shipping &amp; Returns</a>
                     </span>
                     <span className="py-3 md:py-0 md:pb-4">
-                        <a href="/">Privacy Policy</a>
+                        <a href="/privacy-policy">Privacy Policy</a>
                     </span>
                 </div>
                 <div className="flex flex-col items-center justify-between pt-6 pb-10 space-y-4 text-sm md:flex-row text-accent-6">
