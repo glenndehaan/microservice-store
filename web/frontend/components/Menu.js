@@ -28,6 +28,12 @@ export default class Menu extends Component {
         const params = (new URL(document.location)).searchParams;
         const search = params.get('search');
         this.searchBar.value = typeof search !== "undefined" ? search : '';
+
+        window.emitter.on('menu:cart:open', () => {
+            this.setState({
+                cartOpen: true
+            });
+        });
     }
 
     /**

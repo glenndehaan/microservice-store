@@ -11,6 +11,7 @@ import "regenerator-runtime/runtime";
 import { h, Component, render } from 'preact';
 import Router from 'preact-router';
 import Cookies from 'js-cookie';
+import mitt from 'mitt';
 
 import Menu from './components/Menu';
 import Footer from './components/Footer';
@@ -41,6 +42,7 @@ class App extends Component {
 
         window.site = {};
         window.site.production = process.env.NODE_ENV === 'production';
+        window.emitter = mitt();
     }
 
     /**

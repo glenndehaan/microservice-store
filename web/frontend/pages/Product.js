@@ -97,6 +97,7 @@ export default class Product extends Component {
     async addCart(id) {
         await cart.add(id);
         this.props.updateCart();
+        window.emitter.emit('menu:cart:open');
     }
 
     /**
