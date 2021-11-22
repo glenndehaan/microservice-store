@@ -8,7 +8,7 @@
     "slug": "next-js-enamel-mug",
     "price": {
       "value": 80,
-      "currencyCode": "USD"
+      "currencyCode": "EUR"
     }
   },
   {
@@ -48,7 +48,7 @@
     "slug": "lightweight-jacket",
     "price": {
       "value": 249.99,
-      "currencyCode": "USD"
+      "currencyCode": "EUR"
     }
   },
   {
@@ -97,7 +97,7 @@
     "slug": "jacket",
     "price": {
       "value": 160.12,
-      "currencyCode": "USD"
+      "currencyCode": "EUR"
     }
   },
   {
@@ -123,7 +123,7 @@
     "slug": "mask",
     "price": {
       "value": 39,
-      "currencyCode": "USD"
+      "currencyCode": "EUR"
     }
   },
   {
@@ -171,7 +171,7 @@
     "slug": "ladies-short-sleeve-t-shirt",
     "price": {
       "value": 25,
-      "currencyCode": "USD"
+      "currencyCode": "EUR"
     }
   },
   {
@@ -219,7 +219,7 @@
     "slug": "short-sleeve-t-shirt",
     "price": {
       "value": 26,
-      "currencyCode": "USD"
+      "currencyCode": "EUR"
     }
   },
   {
@@ -259,7 +259,7 @@
     "slug": "next-js-short-sleeve-unisex-t-shirt",
     "price": {
       "value": 13.5,
-      "currencyCode": "USD"
+      "currencyCode": "EUR"
     }
   },
   {
@@ -301,7 +301,7 @@
     "slug": "womens-letterman-jacket",
     "price": {
       "value": 54,
-      "currencyCode": "USD"
+      "currencyCode": "EUR"
     }
   },
   {
@@ -341,7 +341,7 @@
     "slug": "embroidered-champion-packable-jacket",
     "price": {
       "value": 51.5,
-      "currencyCode": "USD"
+      "currencyCode": "EUR"
     }
   },
   {
@@ -381,7 +381,7 @@
     "slug": "bomber-jacket",
     "price": {
       "value": 52,
-      "currencyCode": "USD"
+      "currencyCode": "EUR"
     }
   },
   {
@@ -424,7 +424,7 @@
     "slug": "unisex-skinny-joggers",
     "price": {
       "value": 44,
-      "currencyCode": "USD"
+      "currencyCode": "EUR"
     }
   },
   {
@@ -466,7 +466,7 @@
     "slug": "unisex-joggers",
     "price": {
       "value": 34,
-      "currencyCode": "USD"
+      "currencyCode": "EUR"
     }
   }
 ]

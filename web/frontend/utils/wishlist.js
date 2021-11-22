@@ -18,7 +18,7 @@ export default {
     },
 
     /**
-     * Removed an item from the wishlist
+     * Removes an item from the wishlist
      *
      * @param id
      * @return {Promise<void>}

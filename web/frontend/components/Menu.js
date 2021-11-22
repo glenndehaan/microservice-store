@@ -84,7 +84,7 @@ export default class Menu extends Component {
      * @returns {*}
      */
     render() {
-        const {modules, cart, wishlist, products, updateWishlist} = this.props;
+        const {modules, cart, wishlist, products, updateWishlist, updateCart} = this.props;
         const {cartOpen, wishlistOpen} = this.state;
 
         const cartProducts = cart.filter((item) => {
@@ -110,10 +110,10 @@ export default class Menu extends Component {
         return (
             <header className="flex items-center justify-between max-w-screen-xl p-4 mx-auto text-gray-100 md:px-8">
                 {cartOpen &&
-                    <Panel type="cart" products={cartProducts} close={() => this.closePanel('cart')} updateWishlist={updateWishlist}/>
+                    <Panel type="cart" products={cartProducts} close={() => this.closePanel('cart')} updateWishlist={updateWishlist} updateCart={updateCart}/>
                 }
                 {wishlistOpen &&
-                    <Panel type="wishlist" products={wishlistProducts} close={() => this.closePanel('wishlist')} updateWishlist={updateWishlist}/>
+                    <Panel type="wishlist" products={wishlistProducts} close={() => this.closePanel('wishlist')} updateWishlist={updateWishlist} updateCart={updateCart}/>
                 }
                 <div className="w-32">
                     <a href="/">

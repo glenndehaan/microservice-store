@@ -131,11 +131,11 @@ class App extends Component {
 
         return (
             <div id="root">
-                <Menu modules={modules} cart={cart} wishlist={wishlist} products={products} updateWishlist={() => this.getWishlist(Cookies.get('user'))}/>
+                <Menu modules={modules} cart={cart} wishlist={wishlist} products={products} updateWishlist={() => this.getWishlist(Cookies.get('user'))} updateCart={() => this.getCart(Cookies.get('user'))}/>
                 <div>
                     <Router>
                         <Home path="/" modules={modules} products={products} wishlist={wishlist} updateWishlist={() => this.getWishlist(Cookies.get('user'))}/>
-                        <Product path="/product/:slug" modules={modules} products={products} cart={cart} wishlist={wishlist} updateWishlist={() => this.getWishlist(Cookies.get('user'))}/>
+                        <Product path="/product/:slug" modules={modules} products={products} cart={cart} wishlist={wishlist} updateWishlist={() => this.getWishlist(Cookies.get('user'))} updateCart={() => this.getCart(Cookies.get('user'))}/>
                     </Router>
                 </div>
                 <Footer/>

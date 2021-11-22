@@ -3,7 +3,8 @@ import { h, Component } from 'preact';
 import Heart from '../components/icons/Heart';
 
 import fetch from '../utils/fetch';
-import wishlist from "../utils/wishlist";
+import cart from '../utils/cart';
+import wishlist from '../utils/wishlist';
 
 export default class Product extends Component {
     /**
@@ -88,6 +89,17 @@ export default class Product extends Component {
     }
 
     /**
+     * Add an item to the cart
+     *
+     * @param id
+     * @return {Promise<void>}
+     */
+    async addCart(id) {
+        await cart.add(id);
+        this.props.updateCart();
+    }
+
+    /**
      * Preact render function
      *
      * @returns {*}
@@ -112,7 +124,7 @@ export default class Product extends Component {
                         <div className="relative w-full overflow-hidden rounded-xl">
                             <img src={product.image} className="object-cover w-full h-full overflow-hidden bg-gray-900 rounded-xl" alt={`${product.name} Image`}/>
                             {modules.wishlist &&
-                                <button className="absolute top-0 right-0 z-10 p-4 bg-gray-1000 hover:bg-gray-800" onClick={() => this.updateWishlist(product.id, wishlist.includes(product.id) ? 'remove' : 'add')}>
+                                <button name="Add to Wishlist" ariaLabel="Add to Wishlist" className="absolute top-0 right-0 z-10 p-4 bg-gray-1000 hover:bg-gray-800" onClick={() => this.updateWishlist(product.id, wishlist.includes(product.id) ? 'remove' : 'add')}>
                                     <Heart fill={wishlist.includes(product.id)}/>
                                 </button>
                             }
@@ -130,11 +142,11 @@ export default class Product extends Component {
                                             {option.values.map((value, key) => {
                                                 if(value.color) {
                                                     return (
-                                                        <button key={key} style={{ backgroundColor: value.color }} className="flex items-center justify-center w-12 h-12 border border-gray-200 rounded-full"/>
+                                                        <button key={key} name={`${option.name}: ${value.label}`} ariaLabel={`${option.name}: ${value.label}`} style={{ backgroundColor: value.color }} className="flex items-center justify-center w-12 h-12 border border-gray-200 rounded-full"/>
                                                     )
                                                 } else {
                                                     return (
-                                                        <button key={key} className="flex items-center justify-center w-12 h-12 border border-gray-200 rounded-full hover:bg-white hover:text-black">
+                                                        <button key={key} name={`${option.name}: ${value.label}`} ariaLabel={`${option.name}: ${value.label}`}  className="flex items-center justify-center w-12 h-12 border border-gray-200 rounded-full hover:bg-white hover:text-black">
                                                             {value.label}
                                                         </button>
                                                     )
@@ -148,7 +160,7 @@ export default class Product extends Component {
                                     <p className="italic">{stock.stock} in stock</p>
                                 }
                                 {modules.cart &&
-                                    <button className="px-4 py-2 mt-4 text-base font-semibold leading-6 text-black transition-colors duration-200 bg-gray-200 rounded-lg outline-none hover:bg-white md:px-6 md:text-lg disabled:bg-gray-900 disabled:text-white disabled:cursor-not-allowed disabled:hover:bg-gray-900" disabled={stock.stock < 1 || typeof inCart[0] !== "undefined"}>
+                                    <button name="Add to Cart" ariaLabel="Add to Cart" className="px-4 py-2 mt-4 text-base font-semibold leading-6 text-black transition-colors duration-200 bg-gray-200 rounded-lg outline-none hover:bg-white md:px-6 md:text-lg disabled:bg-gray-900 disabled:text-white disabled:cursor-not-allowed disabled:hover:bg-gray-900" disabled={stock.stock < 1 || typeof inCart[0] !== "undefined"} onClick={() => this.addCart(product.id)}>
                                         {stock.stock > 0 ? typeof inCart[0] === "undefined" ? 'Add to cart' : 'Already in cart' : 'Out of stock'}
                                     </button>
                                 }

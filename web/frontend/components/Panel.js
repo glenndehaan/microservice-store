@@ -1,7 +1,9 @@
 import {h, Component, Fragment} from 'preact';
 
 import Close from './icons/Close';
-import wishlist from "../utils/wishlist";
+
+import cart from '../utils/cart';
+import wishlist from '../utils/wishlist';
 
 export default class Panel extends Component {
     /**
@@ -13,6 +15,42 @@ export default class Panel extends Component {
     async removeWishlist(id) {
         await wishlist.remove(id);
         this.props.updateWishlist();
+    }
+
+    /**
+     * Update an item from the cart
+     *
+     * @param product
+     * @param type
+     * @return {Promise<void>}
+     */
+    async updateCart(product, type) {
+        if(type === "add") {
+            await cart.update(product.id, {
+                ...product.cart,
+                quantity: product.cart.quantity + 1
+            });
+            this.props.updateCart();
+        }
+
+        if(type === "remove") {
+            await cart.update(product.id, {
+                ...product.cart,
+                quantity: product.cart.quantity - 1
+            });
+            this.props.updateCart();
+        }
+    }
+
+    /**
+     * Remove an item from the cart
+     *
+     * @param id
+     * @return {Promise<void>}
+     */
+    async removeCart(id) {
+        await cart.remove(id);
+        this.props.updateCart();
     }
 
     /**
@@ -70,13 +108,13 @@ export default class Panel extends Component {
                                             }
                                             {type === "cart" &&
                                                 <>
-                                                    <button className="inline-block py-2 text-xs font-semibold text-center uppercase bg-gray-800 rounded-md hover:bg-gray-700">
+                                                    <button className="inline-block py-2 text-xs font-semibold text-center uppercase bg-gray-800 rounded-md hover:bg-gray-700" onClick={() => this.removeCart(product.id)}>
                                                         Remove
                                                     </button>
-                                                    <button className="inline-block py-2 text-xs font-semibold text-center uppercase bg-gray-800 rounded-md hover:bg-gray-700">
+                                                    <button className="inline-block py-2 text-xs font-semibold text-center uppercase bg-gray-800 rounded-md hover:bg-gray-700" onClick={() => this.updateCart(product, "add")}>
                                                         +
                                                     </button>
-                                                    <button className="inline-block py-2 text-xs font-semibold text-center uppercase bg-gray-800 rounded-md hover:bg-gray-700">
+                                                    <button className="inline-block py-2 text-xs font-semibold text-center uppercase bg-gray-800 rounded-md hover:bg-gray-700 disabled:bg-gray-900 disabled:text-white disabled:cursor-not-allowed disabled:hover:bg-gray-900" onClick={() => this.updateCart(product, "remove")} disabled={product.cart.quantity === 1}>
                                                         -
                                                     </button>
                                                 </>

@@ -107,7 +107,7 @@ export default class Home extends Component {
                                 <img src={product.image} alt={`${product.name} Image`} className="absolute object-cover w-full h-full bg-gray-900"/>
                             </a>
                             {modules.wishlist &&
-                                <button className="absolute right-0 z-10 p-2 bg-gray-1000 hover:bg-gray-800" onClick={() => this.updateWishlist(product.id, wishlist.includes(product.id) ? 'remove' : 'add')}>
+                                <button name="Add to Wishlist" ariaLabel="Add to Wishlist" className="absolute right-0 z-10 p-3 bg-gray-1000 hover:bg-gray-800" onClick={() => this.updateWishlist(product.id, wishlist.includes(product.id) ? 'remove' : 'add')}>
                                     <Heart fill={wishlist.includes(product.id)}/>
                                 </button>
                             }
