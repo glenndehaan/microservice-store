@@ -140,7 +140,7 @@ export default class Product extends Component {
                                     </div>
                                 ))}
                                 <p dangerouslySetInnerHTML={{__html: product.description}}/>
-                                {stock.stock &&
+                                {typeof stock.stock !== "undefined" &&
                                     <p className="italic">{stock.stock} in stock</p>
                                 }
                                 {modules.cart &&
