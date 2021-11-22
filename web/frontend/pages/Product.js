@@ -160,7 +160,7 @@ export default class Product extends Component {
                                     <p className="italic">{stock.stock} in stock</p>
                                 }
                                 {modules.cart &&
-                                    <button name="Add to Cart" ariaLabel="Add to Cart" className="px-4 py-2 mt-4 text-base font-semibold leading-6 text-black transition-colors duration-200 bg-gray-200 rounded-lg outline-none hover:bg-white md:px-6 md:text-lg disabled:bg-gray-900 disabled:text-white disabled:cursor-not-allowed disabled:hover:bg-gray-900" disabled={stock.stock < 1 || typeof inCart[0] !== "undefined"} onClick={() => this.addCart(product.id)}>
+                                    <button name="Add to Cart" ariaLabel="Add to Cart" className="px-4 py-2 mt-4 text-base font-semibold leading-6 text-black transition-colors duration-200 bg-gray-200 rounded-lg outline-none hover:bg-white md:px-6 md:text-lg disabled:bg-gray-900 disabled:text-white disabled:cursor-not-allowed disabled:hover:bg-gray-900" disabled={typeof stock.stock === "undefined" || stock.stock < 1 || typeof inCart[0] !== "undefined"} onClick={() => this.addCart(product.id)}>
                                         {stock.stock > 0 ? typeof inCart[0] === "undefined" ? 'Add to cart' : 'Already in cart' : 'Out of stock'}
                                     </button>
                                 }
