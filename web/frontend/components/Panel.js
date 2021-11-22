@@ -145,6 +145,11 @@ export default class Panel extends Component {
                                     <span>Total</span>
                                     <span>€{total.toFixed(2)}</span>
                                 </div>
+                                <div>
+                                    <button className="inline-block py-2 text-xs font-semibold text-center uppercase bg-gray-800 rounded-md hover:bg-gray-700 cursor-not-allowed w-full">
+                                        Checkout
+                                    </button>
+                                </div>
                                 <div/>
                             </div>
                         }
