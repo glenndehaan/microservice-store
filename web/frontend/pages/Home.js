@@ -13,6 +13,7 @@ export default class Home extends Component {
         super();
 
         this.state = {
+            search: false,
             searchResults: []
         };
     }
@@ -46,11 +47,13 @@ export default class Home extends Component {
 
             if (products && products.status.success) {
                 this.setState({
+                    search: true,
                     searchResults: products.data
                 });
             }
         } else {
             this.setState({
+                search: false,
                 searchResults: []
             });
         }
@@ -80,16 +83,23 @@ export default class Home extends Component {
      */
     render() {
         const {modules, wishlist} = this.props;
-        const products = this.state.searchResults.length > 0 ? this.state.searchResults : this.props.products;
+        const {search, searchResults} = this.state;
+        const products = search ? searchResults.length > 0 ? searchResults : [] : this.props.products;
 
         // @todo add 404 alternative page
-        if(products.length < 1) {
+        if(!search && products.length < 1) {
+            return null;
+        }
+
+        // @todo add 404 alternative page
+        if(search && products.length < 1) {
             return null;
         }
 
         return (
             <main>
                 <div className="grid max-w-screen-lg grid-cols-1 gap-6 p-4 mx-auto sm:grid-cols-2 lg:grid-cols-3 md:px-8">
+
                     {products.map((product, key) => (
                         <div className="rounded-xl line-height-0 overflow-hidden relative w-100 pb-[100%] text-gray-100">
                             <a href={`/product/${product.slug}`} key={key} className="grid gap-y-2">
