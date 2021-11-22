@@ -86,8 +86,22 @@ export default class Menu extends Component {
     render() {
         const {modules, cart, wishlist, products, updateWishlist} = this.props;
         const {cartOpen, wishlistOpen} = this.state;
-        const cartProducts = products.filter((item) => {
-            return cart.includes(item.id);
+
+        const cartProducts = cart.filter((item) => {
+            const product = products.filter((product) => {
+                return product.id === item.id;
+            });
+
+            return typeof product[0] !== "undefined";
+        }).map((item) => {
+            const product = products.filter((product) => {
+                return product.id === item.id;
+            });
+
+            return {
+                ...product[0],
+                cart: item.options
+            };
         });
         const wishlistProducts = products.filter((item) => {
             return wishlist.includes(item.id);

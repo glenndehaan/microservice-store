@@ -100,7 +100,7 @@ export default class Home extends Component {
                                         </div>
                                     </div>
                                     <div className="inline-block px-4 py-2 text-xs font-semibold bg-gray-1000">
-                                        €{product.price.value}
+                                        €{product.price.value.toFixed(2)}
                                     </div>
                                 </div>
 

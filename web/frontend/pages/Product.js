@@ -93,8 +93,12 @@ export default class Product extends Component {
      * @returns {*}
      */
     render() {
-        const {modules, wishlist} = this.props;
+        const {modules, wishlist, cart} = this.props;
         const {product, stock} = this.state;
+
+        const inCart = cart.filter((item) => {
+            return item.id === product.id;
+        });
 
         // @todo add 404 alternative page
         if(!product.name) {
@@ -118,7 +122,7 @@ export default class Product extends Component {
                                 <h1 className="text-3xl font-bold tracking-tight md:text-5xl">
                                     {product.name}
                                 </h1>
-                                <div className="mb-4 tracking-tight text-1xl md:text-2xl">€{product.price && product.price.value}</div>
+                                <div className="mb-4 tracking-tight text-1xl md:text-2xl">€{product.price && product.price.value.toFixed(2)}</div>
                                 {product.options.map((option, key) => (
                                     <div key={key}>
                                         <h3 className="mb-2 text-sm font-semibold uppercase">{option.name}</h3>
@@ -144,8 +148,8 @@ export default class Product extends Component {
                                     <p className="italic">{stock.stock} in stock</p>
                                 }
                                 {modules.cart &&
-                                    <button className="px-4 py-2 mt-4 text-base font-semibold leading-6 text-black transition-colors duration-200 bg-gray-200 rounded-lg outline-none hover:bg-white md:px-6 md:text-lg disabled:bg-gray-900 disabled:text-white disabled:cursor-not-allowed disabled:hover:bg-gray-900" disabled={stock.stock < 1}>
-                                        {stock.stock > 0 ? 'Add to cart' : 'Out of stock'}
+                                    <button className="px-4 py-2 mt-4 text-base font-semibold leading-6 text-black transition-colors duration-200 bg-gray-200 rounded-lg outline-none hover:bg-white md:px-6 md:text-lg disabled:bg-gray-900 disabled:text-white disabled:cursor-not-allowed disabled:hover:bg-gray-900" disabled={stock.stock < 1 || typeof inCart[0] !== "undefined"}>
+                                        {stock.stock > 0 ? typeof inCart[0] === "undefined" ? 'Add to cart' : 'Already in cart' : 'Out of stock'}
                                     </button>
                                 }
                             </div>

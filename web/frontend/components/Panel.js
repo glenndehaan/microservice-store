@@ -22,6 +22,14 @@ export default class Panel extends Component {
      */
     render() {
         const {type, products, close} = this.props;
+        let total = 0;
+
+        if(type === "cart") {
+            for (let item = 0; item < products.length; item++) {
+                const product = products[item];
+                total += (product.price.value * product.cart.quantity);
+            }
+        }
 
         return (
             <>
@@ -48,9 +56,9 @@ export default class Panel extends Component {
                                                 </a>
                                             </h1>
                                             <h2 className="inline-block py-2 text-xs text-right">
-                                                <div>€{product.price.value}</div>
+                                                <div>€{product.price.value.toFixed(2)}</div>
                                                 {type === "cart" &&
-                                                    <div className="font-semibold">x8</div>
+                                                    <div className="font-semibold">x{product.cart.quantity}</div>
                                                 }
                                             </h2>
                                         </div>
@@ -84,7 +92,7 @@ export default class Panel extends Component {
                                 <ul className="pb-2">
                                     <li className="flex justify-between py-1">
                                         <span>Subtotal</span>
-                                        <span>€0,00</span>
+                                        <span>€{total.toFixed(2)}</span>
                                     </li>
                                     <li className="flex justify-between py-1">
                                         <span>Taxes</span>
@@ -97,9 +105,9 @@ export default class Panel extends Component {
                                 </ul>
                                 <div className="flex justify-between py-3 mb-2 font-bold border-t border-gray-700">
                                     <span>Total</span>
-                                    <span>€0,00</span>
+                                    <span>€{total.toFixed(2)}</span>
                                 </div>
-                                <div></div>
+                                <div/>
                             </div>
                         }
                     </div>
