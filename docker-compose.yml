@@ -137,6 +137,25 @@ services:
       - "traefik.http.routers.microservice-assets.middlewares=microservice-assets-stripprefix,microservice-assets-compress"
       - "traefik.http.middlewares.microservice-assets-stripprefix.stripprefix.prefixes=/assets"
       - "traefik.http.middlewares.microservice-assets-compress.compress=true"
+  # App CMS
+  cms:
+    image: ghost:alpine
+    networks:
+      - web
+    volumes:
+      - './cms/content:/var/lib/ghost/content'
+    environment:
+      url: http://localhost/cms
+    labels:
+      #### Labels define the behavior and rules of the traefik proxy for this container ####
+      - "traefik.enable=true"
+      - "traefik.http.routers.microservice-cms.rule=PathPrefix(`/cms`)"
+      - "traefik.http.routers.microservice-cms.entrypoints=web"
+      - "traefik.http.routers.microservice-cms.middlewares=microservice-cms-redirectregex,microservice-cms-compress"
+      - "traefik.http.middlewares.microservice-cms-redirectregex.redirectregex.regex=^http://localhost/cms/?$$"
+      - "traefik.http.middlewares.microservice-cms-redirectregex.redirectregex.replacement=/cms/ghost/"
+      - "traefik.http.middlewares.microservice-cms-redirectregex.redirectregex.permanent=true"
+      - "traefik.http.middlewares.microservice-cms-compress.compress=true"
   # App Web UI
   web:
     build:

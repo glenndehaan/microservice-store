@@ -11,5 +11,8 @@ node_modules
 # Redis data
 redis/data
 
+# CMS content
+cms/content
+
 # Web builds
 web/public/dist
