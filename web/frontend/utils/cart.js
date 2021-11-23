@@ -7,15 +7,17 @@ export default {
      * Adds an item to the cart
      *
      * @param id
+     * @param options
      * @return {Promise<void>}
      */
-    add: async (id) => {
+    add: async (id, options = {}) => {
         const user = Cookies.get('user');
 
         return fetch(`${window.expressConfig.cartApi}/${user}/add`, {
             id,
             options: {
-                quantity: 1
+                quantity: 1,
+                item: options
             }
         });
     },

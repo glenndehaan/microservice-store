@@ -60,11 +60,11 @@
       {
         "values": [
           {
-            "label": "Black",
+            "label": "White",
             "color": "#FFFFFF"
           },
           {
-            "label": "White",
+            "label": "Black",
             "color": "#000000"
           }
         ],
@@ -109,11 +109,11 @@
       {
         "values": [
           {
-            "label": "Black",
+            "label": "White",
             "color": "#FFFFFF"
           },
           {
-            "label": "White",
+            "label": "Black",
             "color": "#000000"
           }
         ],

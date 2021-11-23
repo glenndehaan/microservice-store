@@ -90,7 +90,12 @@ export default class Panel extends Component {
                                             </a>
                                             <h1 className="py-2 text-sm font-semibold">
                                                 <a href={`/product/${product.slug}`} onClick={close}>
-                                                    {product.name}
+                                                    {product.name}<br/>
+                                                    <span className="italic font-normal">
+                                                        {product.cart.item.map((item) => {
+                                                            return `${item.option}: ${item.label}`;
+                                                        }).join(', ')}
+                                                    </span>
                                                 </a>
                                             </h1>
                                             <h2 className="inline-block py-2 text-xs text-right">

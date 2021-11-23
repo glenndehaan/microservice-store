@@ -15,7 +15,8 @@ export default class Product extends Component {
 
         this.state = {
             product: {},
-            stock: {}
+            stock: {},
+            options: {}
         };
     }
 
@@ -52,6 +53,8 @@ export default class Product extends Component {
             this.setState({
                 product: product.data
             });
+
+            this.setInitialOptions(product.data);
         }
     }
 
@@ -95,9 +98,53 @@ export default class Product extends Component {
      * @return {Promise<void>}
      */
     async addCart(id) {
-        await cart.add(id);
+        const options = [];
+
+        const optionKeys = Object.keys(this.state.options);
+        for(let item = 0; item < optionKeys.length; item++) {
+            const option = optionKeys[item];
+            options.push({
+                option: option,
+                ...this.state.options[option]
+            })
+        }
+
+        await cart.add(id, options);
         this.props.updateCart();
         window.emitter.emit('menu:cart:open');
+    }
+
+    /**
+     * Sets the initial options
+     *
+     * @param product
+     */
+    setInitialOptions(product) {
+        const options = {};
+
+        for(let item = 0; item < product.options.length; item++) {
+            const option = product.options[item];
+            options[option.name] = option.values[0];
+        }
+
+        this.setState({
+            options
+        });
+    }
+
+    /**
+     * Updates an option
+     *
+     * @param option
+     * @param value
+     */
+    updateOption(option, value) {
+        const options = this.state.options;
+        options[option] = value;
+
+        this.setState({
+            options
+        });
     }
 
     /**
@@ -107,7 +154,7 @@ export default class Product extends Component {
      */
     render() {
         const {modules, wishlist, cart} = this.props;
-        const {product, stock} = this.state;
+        const {product, stock, options} = this.state;
 
         const inCart = cart.filter((item) => {
             return item.id === product.id;
@@ -143,11 +190,11 @@ export default class Product extends Component {
                                             {option.values.map((value, key) => {
                                                 if(value.color) {
                                                     return (
-                                                        <button key={key} name={`${option.name}: ${value.label}`} ariaLabel={`${option.name}: ${value.label}`} style={{ backgroundColor: value.color }} className="flex items-center justify-center w-12 h-12 border border-gray-200 rounded-full"/>
+                                                        <button key={key} name={`${option.name}: ${value.label}`} ariaLabel={`${option.name}: ${value.label}`} style={{ backgroundColor: value.color }} className="flex items-center justify-center w-12 h-12 border-2 border-gray-200 rounded-full disabled:border-orange-400 disabled:cursor-not-allowed" disabled={options[option.name].label === value.label} onClick={() => this.updateOption(option.name, value)}/>
                                                     )
                                                 } else {
                                                     return (
-                                                        <button key={key} name={`${option.name}: ${value.label}`} ariaLabel={`${option.name}: ${value.label}`}  className="flex items-center justify-center w-12 h-12 border border-gray-200 rounded-full hover:bg-white hover:text-black">
+                                                        <button key={key} name={`${option.name}: ${value.label}`} ariaLabel={`${option.name}: ${value.label}`}  className="flex items-center justify-center w-12 h-12 border-2 border-gray-200 rounded-full hover:bg-white hover:text-black disabled:border-orange-400 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-white" disabled={options[option.name].label === value.label} onClick={() => this.updateOption(option.name, value)}>
                                                             {value.label}
                                                         </button>
                                                     )
