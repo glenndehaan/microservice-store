@@ -92,7 +92,7 @@ export default class Panel extends Component {
                                                 <a href={`/product/${product.slug}`} onClick={close}>
                                                     {product.name}<br/>
                                                     <span className="italic font-normal">
-                                                        {product.cart.item.map((item) => {
+                                                        {type === "cart" && product.cart.item.map((item) => {
                                                             return `${item.option}: ${item.label}`;
                                                         }).join(', ')}
                                                     </span>
