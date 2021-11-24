@@ -31,7 +31,7 @@ RUN npm ci --only=production
 WORKDIR /app
 
 # Bundle app source
-COPY ./api/wishlist .
+COPY ./api/content .
 
 # Install dependencies
 RUN npm ci --only=production
@@ -41,7 +41,7 @@ RUN npm ci --only=production
 #
 
 # Expose app
-EXPOSE 4006
+EXPOSE 4001
 
 # Set node env
 ENV NODE_ENV=production

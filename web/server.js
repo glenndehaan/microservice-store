@@ -27,11 +27,12 @@ const spa = (req, res) => {
         hostname: req.protocol,
         baseUrl: `${req.protocol}://${req.get('host')}/`,
         cartApi: dev ? 'http://localhost:4000' : '/api/cart',
-        productApi: dev ? 'http://localhost:4001' : '/api/product',
-        searchApi: dev ? 'http://localhost:4002' : '/api/search',
-        stockApi: dev ? 'http://localhost:4003' : '/api/stock',
-        userApi: dev ? 'http://localhost:4004' : '/api/user',
-        wishlistApi: dev ? 'http://localhost:4005' : '/api/wishlist',
+        contentApi: dev ? 'http://localhost:4001' : '/api/content',
+        productApi: dev ? 'http://localhost:4002' : '/api/product',
+        searchApi: dev ? 'http://localhost:4003' : '/api/search',
+        stockApi: dev ? 'http://localhost:4004' : '/api/stock',
+        userApi: dev ? 'http://localhost:4005' : '/api/user',
+        wishlistApi: dev ? 'http://localhost:4006' : '/api/wishlist',
         assets: {
             js: files["main.js"],
             css: files["main.css"]
@@ -91,8 +92,7 @@ if(dev) {
 /**
  * Configure routers
  */
-app.get('/', (req, res) => spa(req, res));
-app.get('/product/:slug', (req, res) => spa(req, res));
+app.get('*', (req, res) => spa(req, res));
 
 /**
  * Setup default 404 message

@@ -17,7 +17,7 @@ const version = '1.0';
 /**
  * Create new API service
  */
-const api = new Api('product', 4001, version);
+const api = new Api('product', 4002, version);
 
 /**
  * Setup GET Product endpoint

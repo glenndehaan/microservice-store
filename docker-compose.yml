@@ -19,6 +19,25 @@ services:
       - "traefik.http.middlewares.microservice-cart-ratelimit.ratelimit.burst=50"
       - "traefik.http.services.microservice-cart.loadbalancer.healthcheck.path=/_status"
       - "traefik.http.services.microservice-cart.loadbalancer.healthcheck.interval=30s"
+  content:
+    build:
+      context: .
+      dockerfile: ./api/content/Dockerfile
+    networks:
+      - web
+    environment:
+      GHOST_KEY: "${GHOST_KEY}"
+    labels:
+      #### Labels define the behavior and rules of the traefik proxy for this container ####
+      - "traefik.enable=true"
+      - "traefik.http.routers.microservice-content.rule=PathPrefix(`/api/content`)"
+      - "traefik.http.routers.microservice-content.entrypoints=web"
+      - "traefik.http.routers.microservice-content.middlewares=microservice-content-stripprefix,microservice-content-ratelimit"
+      - "traefik.http.middlewares.microservice-content-stripprefix.stripprefix.prefixes=/api/content"
+      - "traefik.http.middlewares.microservice-content-ratelimit.ratelimit.average=100"
+      - "traefik.http.middlewares.microservice-content-ratelimit.ratelimit.burst=50"
+      - "traefik.http.services.microservice-content.loadbalancer.healthcheck.path=/_status"
+      - "traefik.http.services.microservice-content.loadbalancer.healthcheck.interval=30s"
   product:
     build:
       context: .

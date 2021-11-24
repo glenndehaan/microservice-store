@@ -18,6 +18,7 @@ import Footer from './components/Footer';
 
 import Home from './pages/Home';
 import Product from './pages/Product';
+import Page from './pages/Page';
 
 import fetch from './utils/fetch';
 
@@ -138,6 +139,7 @@ class App extends Component {
                     <Router>
                         <Home path="/" modules={modules} products={products} wishlist={wishlist} updateWishlist={() => this.getWishlist(Cookies.get('user'))}/>
                         <Product path="/product/:slug" modules={modules} products={products} cart={cart} wishlist={wishlist} updateWishlist={() => this.getWishlist(Cookies.get('user'))} updateCart={() => this.getCart(Cookies.get('user'))}/>
+                        <Page path="/:slug"/>
                     </Router>
                 </div>
                 <Footer/>

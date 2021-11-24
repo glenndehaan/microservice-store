@@ -21,7 +21,7 @@ const version = '1.0';
 /**
  * Create new API service
  */
-const api = new Api('wishlist', 4005, version);
+const api = new Api('wishlist', 4006, version);
 
 /**
  * Setup GET Wishlist endpoint

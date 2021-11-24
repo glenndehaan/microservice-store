@@ -18,14 +18,16 @@ docker-compose up
 * Traefik - Port: 80
 * Web - Port: 3000
 * Assets - Port: 3001
+* CMS - Port: 2368
 
 ### API
 * Cart - Port: 4000
-* Product - Port: 4001
-* Search - Port: 4002
-* Stock - Port: 4003
-* User - Port: 4004
-* Wishlist - Port: 4005
+* Content - Port: 4001
+* Product - Port: 4002
+* Search - Port: 4003
+* Stock - Port: 4004
+* User - Port: 4005
+* Wishlist - Port: 4006
 
 ### Backend
 * Storage - Port: 5000

@@ -41,7 +41,7 @@ RUN npm ci --only=production
 #
 
 # Expose app
-EXPOSE 4002
+EXPOSE 4003
 
 # Set node env
 ENV NODE_ENV=production

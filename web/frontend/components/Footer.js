@@ -17,7 +17,7 @@ export default class Footer extends Component {
                         <a href="/about">About</a>
                     </span>
                     <span className="py-3 md:py-0 md:pb-4">
-                        <a href="/terms-use">Terms of use</a>
+                        <a href="/terms-of-use">Terms of Use</a>
                     </span>
                     <span className="py-3 md:py-0 md:pb-4">
                         <a href="/shipping-returns">Shipping &amp; Returns</a>

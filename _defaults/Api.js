@@ -31,8 +31,9 @@ class Api {
      * @param {string|boolean} service
      * @param {number|boolean} port
      * @param {string|boolean} version
+     * @param {Object} params
      */
-    constructor(service = false, port = false, version = false) {
+    constructor(service = false, port = false, version = false, params = {}) {
         if(!service) {
             throw new Error('[API] No service defined!');
         }
@@ -106,6 +107,7 @@ class Api {
 
         // Log init
         log.info(`[${this.serviceLabel}] Service Initialized!`);
+        log.info(`[${this.serviceLabel}] Using params: ${JSON.stringify(params)}`);
     }
 
     /**

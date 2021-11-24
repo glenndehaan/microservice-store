@@ -22,7 +22,7 @@ const version = '1.0';
 /**
  * Create new API service
  */
-const api = new Api('user', 4004, version);
+const api = new Api('user', 4005, version);
 
 /**
  * Setup GET User endpoint
