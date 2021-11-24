@@ -92,6 +92,14 @@ if(dev) {
 /**
  * Configure routers
  */
+app.get('/sitemap.xml', (req, res) => {
+    res.status(404);
+    res.send('Not Found!')
+});
+app.get('/robots.txt', (req, res) => {
+    res.status(404);
+    res.send('Not Found!')
+});
 app.get('*', (req, res) => spa(req, res));
 
 /**

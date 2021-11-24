@@ -1,5 +1,6 @@
 import { h, Component } from 'preact';
 
+import Cart from '../components/icons/Cart';
 import Heart from '../components/icons/Heart';
 
 import fetch from '../utils/fetch';
@@ -160,9 +161,16 @@ export default class Product extends Component {
             return item.id === product.id;
         });
 
-        // @todo add 404 alternative page
         if(!product.name) {
-            return null;
+            return (
+                <div className="flex-1 px-12 py-24 flex flex-col justify-center items-center text-gray-100">
+                    <span className="border border-dashed border-secondary flex items-center justify-center w-24 h-24 bg-primary rounded-lg text-primary">
+                        <Cart/>
+                    </span>
+                    <h2 className="pt-6 text-2xl font-bold tracking-wide text-center">Product Not Found</h2>
+                    <p className="text-accent-6 px-10 text-center pt-2">Seems this product has fallen of the shelf<br/><a href="/" className="hover:underline">Want to go back to the home page?</a></p>
+                </div>
+            );
         }
 
         return (

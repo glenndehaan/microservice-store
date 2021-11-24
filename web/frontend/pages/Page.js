@@ -3,7 +3,6 @@ import { h, Component } from 'preact';
 import Heart from '../components/icons/Heart';
 
 import fetch from '../utils/fetch';
-import wishlist from '../utils/wishlist';
 
 export default class Page extends Component {
     /**
@@ -62,9 +61,16 @@ export default class Page extends Component {
     render() {
         const {content} = this.state;
 
-        // @todo add 404 alternative page
         if(!content) {
-            return null;
+            return (
+                <div className="flex-1 px-12 py-24 flex flex-col justify-center items-center text-gray-100">
+                    <span className="border border-dashed border-secondary flex items-center justify-center w-24 h-24 bg-primary rounded-lg text-primary">
+                        <Heart/>
+                    </span>
+                    <h2 className="pt-6 text-2xl font-bold tracking-wide text-center">Not Found</h2>
+                    <p className="text-accent-6 px-10 text-center pt-2">It seems you are lost<br/><a href="/" className="hover:underline">Want to go back to the home page?</a></p>
+                </div>
+            );
         }
 
         return (

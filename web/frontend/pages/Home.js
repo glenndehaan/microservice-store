@@ -1,5 +1,6 @@
 import { h, Component } from 'preact';
 
+import Cart from '../components/icons/Cart';
 import Heart from '../components/icons/Heart';
 
 import fetch from '../utils/fetch';
@@ -86,14 +87,28 @@ export default class Home extends Component {
         const {search, searchResults} = this.state;
         const products = search ? searchResults.length > 0 ? searchResults : [] : this.props.products;
 
-        // @todo add 404 alternative page
         if(!search && products.length < 1) {
-            return null;
+            return (
+                <div className="flex-1 px-12 py-24 flex flex-col justify-center items-center text-gray-100">
+                    <span className="border border-dashed border-secondary flex items-center justify-center w-24 h-24 bg-primary rounded-lg text-primary">
+                        <Cart/>
+                    </span>
+                    <h2 className="pt-6 text-2xl font-bold tracking-wide text-center">Oh snap!</h2>
+                    <p className="text-accent-6 px-10 text-center pt-2">We are currently re-stocking our products.<br/>Please try again later</p>
+                </div>
+            );
         }
 
-        // @todo add 404 alternative page
         if(search && products.length < 1) {
-            return null;
+            return (
+                <div className="flex-1 px-12 py-24 flex flex-col justify-center items-center text-gray-100">
+                    <span className="border border-dashed border-secondary flex items-center justify-center w-24 h-24 bg-primary rounded-lg text-primary">
+                        <Cart/>
+                    </span>
+                    <h2 className="pt-6 text-2xl font-bold tracking-wide text-center">Oh snap!</h2>
+                    <p className="text-accent-6 px-10 text-center pt-2">It seems we are not getting any results for: <span className="italic font-bold">{this.props.search}</span><br/><a href="/" className="hover:underline">Want to go back to the home page?</a></p>
+                </div>
+            );
         }
 
         return (

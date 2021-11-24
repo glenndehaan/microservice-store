@@ -47,7 +47,7 @@ export default class Footer extends Component {
                 <div className="grid md:grid-rows-3 md:grid-cols-3 md:grid-flow-col">
                     {links.map((link, key) => (
                         <span className="py-3 md:py-0 md:pb-4" key={key}>
-                            <a href={link.url}>{link.label}</a>
+                            <a href={link.url} className="hover:underline">{link.label}</a>
                         </span>
                     ))}
                 </div>
