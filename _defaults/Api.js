@@ -107,7 +107,9 @@ class Api {
 
         // Log init
         log.info(`[${this.serviceLabel}] Service Initialized!`);
-        log.info(`[${this.serviceLabel}] Using params: ${JSON.stringify(params)}`);
+        if(Object.keys(params).length > 0) {
+            log.info(`[${this.serviceLabel}] Using params: ${JSON.stringify(params)}`);
+        }
     }
 
     /**
