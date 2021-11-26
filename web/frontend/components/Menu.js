@@ -123,7 +123,7 @@ export default class Menu extends Component {
                 }
                 <div className="w-32">
                     <a href="/">
-                        <img src="/images/logo.png" alt="ACME Logo" className="h-14"/>
+                        <img src="/images/logo_small.png" alt="ACME Logo" className="h-14"/>
                     </a>
                 </div>
                 <div className="flex-grow w-full max-w-2xl">

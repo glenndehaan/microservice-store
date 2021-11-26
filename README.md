@@ -2,7 +2,10 @@
 
 ![ACME MicroService Merch Store](https://user-images.githubusercontent.com/7496187/143560618-fac1750c-658b-427a-84b6-61e174706712.png)
 
-### Install
+## Demo Site
+https://acme-merch.com/
+
+## Install
 - Download the `_resources/docker-compose.yml` file from the repo
 - Place the file on your server
 - Run `docker-compose up`
