@@ -11,6 +11,8 @@ jobs:
   docker-cart:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
@@ -24,7 +26,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          file: ./api/cart
+          file: ./api/cart/Dockerfile
           context: .
           push: true
           tags: glenndehaan/acme-merch-store-cart:latest
@@ -32,6 +34,8 @@ jobs:
   docker-content:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
@@ -45,7 +49,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          file: ./api/content
+          file: ./api/content/Dockerfile
           context: .
           push: true
           tags: glenndehaan/acme-merch-store-content:latest
@@ -53,6 +57,8 @@ jobs:
   docker-product:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
@@ -66,7 +72,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          file: ./api/product
+          file: ./api/product/Dockerfile
           context: .
           push: true
           tags: glenndehaan/acme-merch-store-product:latest
@@ -74,6 +80,8 @@ jobs:
   docker-search:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
@@ -87,7 +95,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          file: ./api/search
+          file: ./api/search/Dockerfile
           context: .
           push: true
           tags: glenndehaan/acme-merch-store-search:latest
@@ -95,6 +103,8 @@ jobs:
   docker-stock:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
@@ -108,7 +118,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          file: ./api/stock
+          file: ./api/stock/Dockerfile
           context: .
           push: true
           tags: glenndehaan/acme-merch-store-stock:latest
@@ -116,6 +126,8 @@ jobs:
   docker-user:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
@@ -129,7 +141,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          file: ./api/user
+          file: ./api/user/Dockerfile
           context: .
           push: true
           tags: glenndehaan/acme-merch-store-user:latest
@@ -137,6 +149,8 @@ jobs:
   docker-wishlist:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
@@ -150,7 +164,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          file: ./api/wishlist
+          file: ./api/wishlist/Dockerfile
           context: .
           push: true
           tags: glenndehaan/acme-merch-store-wishlist:latest
@@ -158,6 +172,8 @@ jobs:
   docker-storage:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
@@ -171,7 +187,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          file: ./storage
+          file: ./storage/Dockerfile
           context: .
           push: true
           tags: glenndehaan/acme-merch-store-storage:latest
@@ -179,6 +195,8 @@ jobs:
   docker-assets:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
@@ -192,7 +210,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          file: ./assets
+          file: ./assets/Dockerfile
           context: .
           push: true
           tags: glenndehaan/acme-merch-store-assets:latest
@@ -200,6 +218,8 @@ jobs:
   docker-web:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
@@ -213,7 +233,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          file: ./web
+          file: ./web/Dockerfile
           context: .
           push: true
           tags: glenndehaan/acme-merch-store-web:latest
