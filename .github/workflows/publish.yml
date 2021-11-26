@@ -211,7 +211,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           file: ./assets/Dockerfile
-          context: .
+          context: ./assets
           push: true
           tags: glenndehaan/acme-merch-store-assets:latest
 
