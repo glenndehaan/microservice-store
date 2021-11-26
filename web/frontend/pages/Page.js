@@ -12,6 +12,9 @@ export default class Page extends Component {
         super();
 
         this.state = {
+            fetch: {
+                content: false
+            },
             content: false
         };
     }
@@ -44,10 +47,18 @@ export default class Page extends Component {
 
         if (content && content.status.success) {
             this.setState({
+                fetch: {
+                    ...this.state.fetch,
+                    content: true
+                },
                 content: content.data
             });
         } else {
             this.setState({
+                fetch: {
+                    ...this.state.fetch,
+                    content: true
+                },
                 content: false
             });
         }
@@ -59,7 +70,11 @@ export default class Page extends Component {
      * @returns {*}
      */
     render() {
-        const {content} = this.state;
+        const {content, fetch} = this.state;
+
+        if(!fetch.content) {
+            return null;
+        }
 
         if(!content) {
             return (

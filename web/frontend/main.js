@@ -33,6 +33,11 @@ class App extends Component {
                 cart: true,
                 wishlist: true
             },
+            fetch: {
+                cart: false,
+                wishlist: false,
+                products: false
+            },
             cart: [],
             wishlist: [],
             products: []
@@ -74,6 +79,10 @@ class App extends Component {
 
         if(cart && cart.status.success) {
             this.setState({
+                fetch: {
+                    ...this.state.fetch,
+                    cart: true
+                },
                 cart: cart.data
             });
         } else {
@@ -81,6 +90,10 @@ class App extends Component {
                 modules: {
                     ...this.state.modules,
                     cart: false
+                },
+                fetch: {
+                    ...this.state.fetch,
+                    cart: true
                 }
             });
         }
@@ -96,6 +109,10 @@ class App extends Component {
 
         if(wishlist && wishlist.status.success) {
             this.setState({
+                fetch: {
+                    ...this.state.fetch,
+                    wishlist: true
+                },
                 wishlist: wishlist.data
             });
         } else {
@@ -103,6 +120,10 @@ class App extends Component {
                 modules: {
                     ...this.state.modules,
                     wishlist: false
+                },
+                fetch: {
+                    ...this.state.fetch,
+                    wishlist: true
                 }
             });
         }
@@ -116,6 +137,18 @@ class App extends Component {
 
         if(products && products.status.success) {
             this.setState({
+                fetch: {
+                    ...this.state.fetch,
+                    products: true
+                },
+                products: products.data
+            });
+        } else {
+            this.setState({
+                fetch: {
+                    ...this.state.fetch,
+                    products: true
+                },
                 products: products.data
             });
         }
@@ -127,7 +160,12 @@ class App extends Component {
      * @returns {*}
      */
     render() {
-        const {modules, cart, wishlist, products} = this.state;
+        const {modules, cart, wishlist, products, fetch} = this.state;
+
+        // Prevent layout shifts
+        if(!fetch.products || !fetch.cart || !fetch.wishlist) {
+            return null;
+        }
 
         return (
             <div id="root">

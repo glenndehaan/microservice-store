@@ -15,6 +15,10 @@ export default class Product extends Component {
         super();
 
         this.state = {
+            fetch: {
+                product: false,
+                stock: false
+            },
             product: {},
             stock: {},
             options: {}
@@ -52,10 +56,21 @@ export default class Product extends Component {
 
         if(product && product.status.success) {
             this.setState({
+                fetch: {
+                    ...this.state.fetch,
+                    product: true
+                },
                 product: product.data
             });
 
             this.setInitialOptions(product.data);
+        } else {
+            this.setState({
+                fetch: {
+                    ...this.state.fetch,
+                    product: true
+                }
+            });
         }
     }
 
@@ -70,7 +85,18 @@ export default class Product extends Component {
 
         if(stock && stock.status.success) {
             this.setState({
+                fetch: {
+                    ...this.state.fetch,
+                    stock: true
+                },
                 stock: stock.data
+            });
+        } else {
+            this.setState({
+                fetch: {
+                    ...this.state.fetch,
+                    stock: true
+                }
             });
         }
     }
@@ -155,11 +181,15 @@ export default class Product extends Component {
      */
     render() {
         const {modules, wishlist, cart} = this.props;
-        const {product, stock, options} = this.state;
+        const {fetch, product, stock, options} = this.state;
 
         const inCart = cart.filter((item) => {
             return item.id === product.id;
         });
+
+        if(!fetch.product || !fetch.stock) {
+            return null;
+        }
 
         if(!product.name) {
             return (
