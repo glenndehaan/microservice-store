@@ -16,3 +16,8 @@ cms/content
 
 # Web builds
 web/public/dist
+
+# Resources
+_resources/cms
+_resources/redis
+_resources/.env

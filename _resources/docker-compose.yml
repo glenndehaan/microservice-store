@@ -2,9 +2,8 @@ version: '2'
 services:
   # API Services
   cart:
-    build:
-      context: .
-      dockerfile: ./api/cart/Dockerfile
+    image: glenndehaan/acme-merch-store-cart
+    restart: unless-stopped
     networks:
       - web
       - backend
@@ -20,9 +19,8 @@ services:
       - "traefik.http.services.microservice-cart.loadbalancer.healthcheck.path=/_status"
       - "traefik.http.services.microservice-cart.loadbalancer.healthcheck.interval=30s"
   content:
-    build:
-      context: .
-      dockerfile: ./api/content/Dockerfile
+    image: glenndehaan/acme-merch-store-content
+    restart: unless-stopped
     networks:
       - web
     environment:
@@ -39,9 +37,8 @@ services:
       - "traefik.http.services.microservice-content.loadbalancer.healthcheck.path=/_status"
       - "traefik.http.services.microservice-content.loadbalancer.healthcheck.interval=30s"
   product:
-    build:
-      context: .
-      dockerfile: ./api/product/Dockerfile
+    image: glenndehaan/acme-merch-store-product
+    restart: unless-stopped
     networks:
       - web
     labels:
@@ -56,9 +53,8 @@ services:
       - "traefik.http.services.microservice-product.loadbalancer.healthcheck.path=/_status"
       - "traefik.http.services.microservice-product.loadbalancer.healthcheck.interval=30s"
   search:
-    build:
-      context: .
-      dockerfile: ./api/search/Dockerfile
+    image: glenndehaan/acme-merch-store-search
+    restart: unless-stopped
     networks:
       - web
     labels:
@@ -73,9 +69,8 @@ services:
       - "traefik.http.services.microservice-search.loadbalancer.healthcheck.path=/_status"
       - "traefik.http.services.microservice-search.loadbalancer.healthcheck.interval=30s"
   stock:
-    build:
-      context: .
-      dockerfile: ./api/stock/Dockerfile
+    image: glenndehaan/acme-merch-store-stock
+    restart: unless-stopped
     networks:
       - web
     labels:
@@ -90,9 +85,8 @@ services:
       - "traefik.http.services.microservice-stock.loadbalancer.healthcheck.path=/_status"
       - "traefik.http.services.microservice-stock.loadbalancer.healthcheck.interval=30s"
   user:
-    build:
-      context: .
-      dockerfile: ./api/user/Dockerfile
+    image: glenndehaan/acme-merch-store-user
+    restart: unless-stopped
     networks:
       - web
       - backend
@@ -108,9 +102,8 @@ services:
       - "traefik.http.services.microservice-user.loadbalancer.healthcheck.path=/_status"
       - "traefik.http.services.microservice-user.loadbalancer.healthcheck.interval=30s"
   wishlist:
-    build:
-      context: .
-      dockerfile: ./api/wishlist/Dockerfile
+    image: glenndehaan/acme-merch-store-wishlist
+    restart: unless-stopped
     networks:
       - web
       - backend
@@ -127,9 +120,8 @@ services:
       - "traefik.http.services.microservice-wishlist.loadbalancer.healthcheck.interval=30s"
   # App Storage
   storage:
-    build:
-      context: .
-      dockerfile: ./storage/Dockerfile
+    image: glenndehaan/acme-merch-store-storage
+    restart: unless-stopped
     depends_on:
       - "redis"
     networks:
@@ -139,13 +131,15 @@ services:
   redis:
     image: redis
     command: bash -c "redis-server --appendonly yes"
+    restart: unless-stopped
     volumes:
-      - './redis/data:/data'
+      - './redis:/data'
     networks:
       - db
   # App Assets
   assets:
-    build: ./assets
+    image: glenndehaan/acme-merch-store-assets
+    restart: unless-stopped
     networks:
       - web
     labels:
@@ -159,10 +153,11 @@ services:
   # App CMS
   cms:
     image: ghost:alpine
+    restart: unless-stopped
     networks:
       - web
     volumes:
-      - './cms/content:/var/lib/ghost/content'
+      - './cms:/var/lib/ghost/content'
     environment:
       url: http://localhost/cms
     labels:
@@ -177,9 +172,8 @@ services:
       - "traefik.http.middlewares.microservice-cms-compress.compress=true"
   # App Web UI
   web:
-    build:
-      context: .
-      dockerfile: ./web/Dockerfile
+    image: glenndehaan/acme-merch-store-web
+    restart: unless-stopped
     networks:
       - web
     labels:
@@ -193,8 +187,9 @@ services:
       - "traefik.http.services.microservice-web.loadbalancer.healthcheck.interval=30s"
   traefik:
     image: traefik:v2.5
+    restart: unless-stopped
     ports:
-      - "80:80" # <== http
+      - "9090:80" # <== http
       - "8080:8080" # <== dashboard
     command:
       ###
