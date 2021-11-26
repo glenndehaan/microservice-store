@@ -1,6 +1,7 @@
 const path = require('path');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 const projectRoot = path.join(__dirname);
 const buildDirectory = path.join(projectRoot, 'frontend');
@@ -30,7 +31,6 @@ const config = {
                     loader: 'babel-loader',
                     options: {
                         presets: [
-                            require.resolve('@babel/preset-env'),
                             require.resolve('@babel/preset-react')
                         ],
                         plugins: [
@@ -43,8 +43,13 @@ const config = {
                 test:/\.css$/,
                 use:[
                     MiniCssExtractPlugin.loader,
-                    "css-loader",
-                    "postcss-loader"
+                    `css-loader?sourceMap=${!prod}`,
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            sourceMap: !prod
+                        }
+                    }
                 ]
             },
             {
@@ -73,6 +78,22 @@ const config = {
                     `sass-loader?sourceMap=${!prod}`
                 ]
             }
+        ]
+    },
+    optimization: {
+        minimize: prod,
+        minimizer: [
+            `...`,
+            new CssMinimizerPlugin({
+                minimizerOptions: {
+                    preset: [
+                        "default",
+                        {
+                            discardComments: { removeAll: true }
+                        }
+                    ]
+                }
+            })
         ]
     },
     plugins: [

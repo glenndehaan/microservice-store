@@ -5,9 +5,6 @@ if (process.env.NODE_ENV === 'development') {
     require("preact/debug");
 }
 
-import "core-js/stable";
-import "regenerator-runtime/runtime";
-
 import { h, Component, render } from 'preact';
 import Router from 'preact-router';
 import Cookies from 'js-cookie';

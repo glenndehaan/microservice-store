@@ -7,5 +7,10 @@ const path = `${__dirname}/public/dist`;
  * @return {any}
  */
 module.exports = () => {
-    return JSON.parse(fs.existsSync(path) ? fs.readFileSync(`${path}/rev-manifest.json`) : "{}");
+    const manifest = JSON.parse(fs.existsSync(path) ? fs.readFileSync(`${path}/rev-manifest.json`) : "{}");
+
+    return {
+        "main.js": manifest["main.js"],
+        "main.css": fs.readFileSync(`${path}/${manifest["main.css"]}`)
+    };
 };
