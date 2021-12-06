@@ -63,15 +63,15 @@ const load = () => {
                 text: 'Product',
                 title: 'Insert a Product Node',
                 value: {
-                    name: '',
-                    description: '',
-                    image: '',
-                    id: '',
+                    name: "",
+                    description: "",
+                    image: "",
+                    id: "0",
                     options: [],
-                    slug: '',
+                    slug: "",
                     price: {
                         value: 0,
-                        currencyCode: 'EUR'
+                        currencyCode: "EUR"
                     }
                 }
             },
@@ -79,8 +79,8 @@ const load = () => {
                 text: 'Stock',
                 title: 'Insert a Stock Node',
                 value: {
-                    id: '',
-                    slug: '',
+                    id: "0",
+                    slug: "",
                     stock: 0
                 }
             }
