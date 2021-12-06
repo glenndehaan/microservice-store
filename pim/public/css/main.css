@@ -11,15 +11,26 @@ body, html {
 }
 
 h1 {
+    text-align: end;
     font-size: 25px;
     line-height: 35px;
-    margin-left: 5px;
+}
+
+.margin-left {
+    margin-left: 10px;
+}
+
+.margin-right {
     margin-right: 10px;
+}
+
+.no-margin-left {
+    margin-left: 0 !important;
 }
 
 #jsoneditor {
     width: 100%;
-    height: calc(100vh - 19px);
+    height: calc(100vh - 35px);
 }
 
 #notify {
@@ -63,7 +74,10 @@ h1 {
 }
 
 .panel {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 0 0;
 }
 
 .dropdown-menu {

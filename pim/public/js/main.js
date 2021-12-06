@@ -6,6 +6,10 @@ const getJSON = (editor, type) => {
     })
         .then(response => response.json())
         .then(data => {
+            const title = `${type.charAt(0).toUpperCase()}${type.slice(1)} | `;
+            document.getElementById('titlePrefix').innerText = title;
+            document.title = `${title}ACME Product Information Management`;
+
             activeDataSet = type;
             editor.set(data);
             editor.expandAll();
@@ -69,6 +73,15 @@ const load = () => {
                         value: 0,
                         currencyCode: 'EUR'
                     }
+                }
+            },
+            {
+                text: 'Stock',
+                title: 'Insert a Stock Node',
+                value: {
+                    id: '',
+                    slug: '',
+                    stock: 0
                 }
             }
         ]

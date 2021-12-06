@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>ACME Data Editor</title>
+        <title>ACME Product Information Management</title>
 
         <link href="css/jsoneditor.css" rel="stylesheet" type="text/css">
         <link href="css/darkmode.css" rel="stylesheet" type="text/css">
@@ -15,16 +15,20 @@
             No new notifications!
         </div>
         <div class="panel">
-            <h1>ACME Data Editor</h1>
-            <div class="dropdown-menu">
-                <button>Open</button>
-                <ul>
-                    <li><button id="openProduct">Product</button></li>
-                    <li><button id="openStock">Stock</button></li>
-                </ul>
+            <div class="margin-left">
+                <div class="dropdown-menu">
+                    <button class="no-margin-left">Open</button>
+                    <ul>
+                        <li><button id="openProduct">Product</button></li>
+                        <li><button id="openStock">Stock</button></li>
+                    </ul>
+                </div>
+                <div class="dropdown-menu single">
+                    <button id="save">Save</button>
+                </div>
             </div>
-            <div class="dropdown-menu single">
-                <button id="save">Save</button>
+            <div class="margin-right">
+                <h1><span id="titlePrefix"></span>ACME Product Information Management</h1>
             </div>
         </div>
         <div id="jsoneditor"></div>
