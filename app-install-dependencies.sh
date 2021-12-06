@@ -1,7 +1,7 @@
 #!/bin/bash
 
 WORKSPACE=$(pwd)
-DIRS=( "$WORKSPACE/_defaults" "$WORKSPACE/api/cart" "$WORKSPACE/api/content" "$WORKSPACE/api/product" "$WORKSPACE/api/search" "$WORKSPACE/api/stock" "$WORKSPACE/api/user" "$WORKSPACE/api/wishlist" "$WORKSPACE/storage" "$WORKSPACE/web" )
+DIRS=( "$WORKSPACE/_defaults" "$WORKSPACE/api/cart" "$WORKSPACE/api/content" "$WORKSPACE/api/product" "$WORKSPACE/api/search" "$WORKSPACE/api/stock" "$WORKSPACE/api/user" "$WORKSPACE/api/wishlist" "$WORKSPACE/storage" "$WORKSPACE/pim" "$WORKSPACE/web" )
 
 echo ""
 echo "--------------------------------------------------------------"

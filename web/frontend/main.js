@@ -148,8 +148,7 @@ class App extends Component {
                 fetch: {
                     ...this.state.fetch,
                     products: true
-                },
-                products: products.data
+                }
             });
         }
     }

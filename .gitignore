@@ -17,7 +17,12 @@ cms/content
 # Web builds
 web/public/dist
 
+# Pim db
+pim/docker-db
+pim/db/*.json
+
 # Resources
 _resources/cms
 _resources/redis
+_resources/pim
 _resources/.env

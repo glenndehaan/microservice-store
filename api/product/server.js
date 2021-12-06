@@ -1,4 +1,9 @@
 /**
+ * Import vendor modules
+ */
+const fetch = require('node-fetch');
+
+/**
  * Check if we are using the dev version
  */
 const dev = process.env.NODE_ENV !== 'production';
@@ -7,7 +12,6 @@ const dev = process.env.NODE_ENV !== 'production';
  * Import own modules
  */
 const Api = require(dev ? '../../_defaults/Api' : '/_defaults/Api');
-const db = require('./data.json');
 
 /**
  * Define global variables
@@ -23,7 +27,26 @@ const api = new Api('product', 4002, version);
  * Setup GET Product endpoint
  */
 api.get('/', (req, res) => {
-    res.json(api.response(200, db));
+    fetch(dev ? `http://localhost:3002/api/product` : `http://pim:3002/api/product`, {
+        method: 'get',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(res => res.json())
+        .then(data => {
+            if(Array.isArray(data)) {
+                res.json(api.response(200, data));
+            } else {
+                res.status(404).json(api.response(404, {
+                    error: data
+                }));
+            }
+        }).catch((e) => {
+            res.status(500).json(api.response(500, {
+                error: e.message || false
+            }));
+        });
 });
 
 /**
@@ -31,13 +54,33 @@ api.get('/', (req, res) => {
  */
 api.get('/:slug', (req, res) => {
     const {slug} = req.params;
-    const data = db.filter((item) => {
-        return item.slug === slug;
-    });
-    const statusCode = data.length < 1 ? 404 : 200;
-    const result = data.length < 1 ? {} : data[0];
 
-    res.status(statusCode).json(api.response(statusCode, result));
+    fetch(dev ? `http://localhost:3002/api/product` : `http://pim:3002/api/product`, {
+        method: 'get',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(res => res.json())
+        .then(data => {
+            if(Array.isArray(data)) {
+                const filteredData = data.filter((item) => {
+                    return item.slug === slug;
+                });
+                const statusCode = filteredData.length < 1 ? 404 : 200;
+                const result = filteredData.length < 1 ? {} : filteredData[0];
+
+                res.status(statusCode).json(api.response(statusCode, result));
+            } else {
+                res.status(404).json(api.response(404, {
+                    error: data
+                }));
+            }
+        }).catch((e) => {
+            res.status(500).json(api.response(500, {
+                error: e.message || false
+            }));
+        });
 });
 
 /**

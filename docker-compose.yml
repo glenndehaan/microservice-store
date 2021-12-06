@@ -156,6 +156,28 @@ services:
       - "traefik.http.routers.microservice-assets.middlewares=microservice-assets-stripprefix,microservice-assets-compress"
       - "traefik.http.middlewares.microservice-assets-stripprefix.stripprefix.prefixes=/assets"
       - "traefik.http.middlewares.microservice-assets-compress.compress=true"
+  # App Pim
+  pim:
+    build:
+      context: .
+      dockerfile: ./pim/Dockerfile
+    networks:
+        - web
+    volumes:
+      - './pim/docker-db:/db'
+    labels:
+      #### Labels define the behavior and rules of the traefik proxy for this container ####
+      - "traefik.enable=true"
+      - "traefik.http.routers.microservice-pim.rule=PathPrefix(`/pim`)"
+      - "traefik.http.routers.microservice-pim.entrypoints=web"
+      - "traefik.http.routers.microservice-pim.middlewares=microservice-pim-redirectregex,microservice-pim-basicauth,microservice-pim-stripprefix,microservice-pim-compress"
+      - "traefik.http.middlewares.microservice-pim-stripprefix.stripprefix.prefixes=/pim"
+      - "traefik.http.middlewares.microservice-pim-redirectregex.redirectregex.regex=^https?://.*/pim$$"
+      - "traefik.http.middlewares.microservice-pim-redirectregex.redirectregex.replacement=/pim/"
+      - "traefik.http.middlewares.microservice-pim-redirectregex.redirectregex.permanent=true"
+      - "traefik.http.middlewares.microservice-pim-basicauth.basicauth.realm=ACME Data Editor"
+      - "traefik.http.middlewares.microservice-pim-basicauth.basicauth.users=user:$$apr1$$dSEBmwZg$$sPFS4pJm83oZclLP0bvsK0" # User: user, Password: password
+      - "traefik.http.middlewares.microservice-pim-compress.compress=true"
   # App CMS
   cms:
     image: ghost:alpine

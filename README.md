@@ -6,8 +6,8 @@
 https://acme-merch.com/
 
 ## Install
-- Download the `_resources/docker-compose.yml` file from the repo
-- Place the file on your server
+- Download the `_resources` folder from the repo
+- Unpack the folder on your server
 - Run `docker-compose up`
 - Open up a browser and go to http://127.0.0.1:9090
 
@@ -42,6 +42,7 @@ docker-compose up
 * Traefik - Port: 80
 * Web - Port: 3000 - [![Image Size](https://img.shields.io/docker/image-size/glenndehaan/acme-merch-store-web)](https://hub.docker.com/r/glenndehaan/acme-merch-store-web)
 * Assets - Port: 3001 - [![Image Size](https://img.shields.io/docker/image-size/glenndehaan/acme-merch-store-assets)](https://hub.docker.com/r/glenndehaan/acme-merch-store-assets)
+* Pim - Port: 3002 - [![Image Size](https://img.shields.io/docker/image-size/glenndehaan/acme-merch-store-pim)](https://hub.docker.com/r/glenndehaan/acme-merch-store-pim)
 * CMS - Port: 2368
 
 ### API
