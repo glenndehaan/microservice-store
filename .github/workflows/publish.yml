@@ -28,6 +28,7 @@ jobs:
         with:
           file: ./api/cart/Dockerfile
           context: .
+          platforms: linux/amd64,linux/arm64,linux/ppc64le,linux/s390x,linux/386,linux/arm/v7,linux/arm/v6
           push: true
           tags: glenndehaan/acme-merch-store-cart:latest
 
@@ -51,6 +52,7 @@ jobs:
         with:
           file: ./api/content/Dockerfile
           context: .
+          platforms: linux/amd64,linux/arm64,linux/ppc64le,linux/s390x,linux/386,linux/arm/v7,linux/arm/v6
           push: true
           tags: glenndehaan/acme-merch-store-content:latest
 
@@ -74,6 +76,7 @@ jobs:
         with:
           file: ./api/product/Dockerfile
           context: .
+          platforms: linux/amd64,linux/arm64,linux/ppc64le,linux/s390x,linux/386,linux/arm/v7,linux/arm/v6
           push: true
           tags: glenndehaan/acme-merch-store-product:latest
 
@@ -97,6 +100,7 @@ jobs:
         with:
           file: ./api/search/Dockerfile
           context: .
+          platforms: linux/amd64,linux/arm64,linux/ppc64le,linux/s390x,linux/386,linux/arm/v7,linux/arm/v6
           push: true
           tags: glenndehaan/acme-merch-store-search:latest
 
@@ -120,6 +124,7 @@ jobs:
         with:
           file: ./api/stock/Dockerfile
           context: .
+          platforms: linux/amd64,linux/arm64,linux/ppc64le,linux/s390x,linux/386,linux/arm/v7,linux/arm/v6
           push: true
           tags: glenndehaan/acme-merch-store-stock:latest
 
@@ -143,6 +148,7 @@ jobs:
         with:
           file: ./api/user/Dockerfile
           context: .
+          platforms: linux/amd64,linux/arm64,linux/ppc64le,linux/s390x,linux/386,linux/arm/v7,linux/arm/v6
           push: true
           tags: glenndehaan/acme-merch-store-user:latest
 
@@ -166,6 +172,7 @@ jobs:
         with:
           file: ./api/wishlist/Dockerfile
           context: .
+          platforms: linux/amd64,linux/arm64,linux/ppc64le,linux/s390x,linux/386,linux/arm/v7,linux/arm/v6
           push: true
           tags: glenndehaan/acme-merch-store-wishlist:latest
 
@@ -189,6 +196,7 @@ jobs:
         with:
           file: ./storage/Dockerfile
           context: .
+          platforms: linux/amd64,linux/arm64,linux/ppc64le,linux/s390x,linux/386,linux/arm/v7,linux/arm/v6
           push: true
           tags: glenndehaan/acme-merch-store-storage:latest
 
@@ -212,6 +220,7 @@ jobs:
         with:
           file: ./assets/Dockerfile
           context: ./assets
+          platforms: linux/amd64,linux/arm64,linux/ppc64le,linux/s390x,linux/386,linux/arm/v7,linux/arm/v6
           push: true
           tags: glenndehaan/acme-merch-store-assets:latest
 
@@ -235,6 +244,7 @@ jobs:
         with:
           file: ./pim/Dockerfile
           context: .
+          platforms: linux/amd64,linux/arm64,linux/ppc64le,linux/s390x,linux/386,linux/arm/v7,linux/arm/v6
           push: true
           tags: glenndehaan/acme-merch-store-pim:latest
 
@@ -258,5 +268,6 @@ jobs:
         with:
           file: ./web/Dockerfile
           context: .
+          platforms: linux/amd64,linux/arm64,linux/ppc64le,linux/s390x,linux/386,linux/arm/v7,linux/arm/v6
           push: true
           tags: glenndehaan/acme-merch-store-web:latest
