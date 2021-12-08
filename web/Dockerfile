@@ -34,7 +34,7 @@ WORKDIR /app
 COPY ./web .
 
 # Install dependencies
-RUN npm ci --only=production
+RUN apk add --no-cache --virtual build-dependencies python3 make g++ && npm ci --only=production && apk del build-dependencies
 
 # Create a production build
 RUN npm run build
