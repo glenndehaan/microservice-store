@@ -37,7 +37,7 @@ COPY ./web .
 RUN npm ci --only=production
 
 # Copy local generated build
-COPY ./web/public/dist ./public
+COPY ./web/public/dist ./public/dist
 
 #
 # Setup app
