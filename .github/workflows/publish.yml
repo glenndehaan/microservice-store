@@ -258,9 +258,9 @@ jobs:
         with:
           node-version: 14
       - name: Install dependencies
-        run: npm i
+        run: cd web && npm i
       - name: Build app
-        run: npm run build
+        run: cd web && npm run build
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
