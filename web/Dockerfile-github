@@ -34,10 +34,10 @@ WORKDIR /app
 COPY ./web .
 
 # Install dependencies
-RUN npm ci
+RUN npm ci --only=production
 
-# Create a production build
-RUN npm run build
+# Copy local generated build
+COPY ./web/public/dist ./public
 
 #
 # Setup app
